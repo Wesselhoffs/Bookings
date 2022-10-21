@@ -9,6 +9,25 @@
         Height="768" Width="1366" 
         MinHeight="768" MinWidth="1366" 
         >
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">                          
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Grid ShowGridLines="True" Background="DarkSeaGreen">
         <Grid.ColumnDefinitions>
@@ -49,52 +68,52 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" BorderThickness="0">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2">
                 <Button.Background>
                     <ImageBrush ImageSource="/Images/Table.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Table_5" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Table4_6" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Table4_7" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <Button.Background>
                     <ImageBrush ImageSource="/Images/Table.png"/>
                 </Button.Background>                
             </Button>
-            <Button x:Name="Table4_8" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2">
                 <Button.Background>
                     <ImageBrush ImageSource="/Images/Table.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="Table8_10" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" BorderThickness="0">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table_5" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_7" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>                
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_8" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_10" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200">
                 <Button.Background>
                     <ImageBrush ImageSource="/Images/Table_Double.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="Table8_11" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" BorderThickness="0">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_11" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200">
                 <Button.Background>
                     <ImageBrush ImageSource="/Images/Table_Double.png"/>
                 </Button.Background>
