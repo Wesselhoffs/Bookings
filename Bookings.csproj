@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Restaurant_Background.png" />
+    <None Remove="Images\Table.png" />
+    <None Remove="Images\Table_Double.png" />
+    <None Remove="Images\Table_Double_Free.png" />
+    <None Remove="Images\Table_Double_Taken.png" />
+    <None Remove="Images\Table_Free.png" />
+    <None Remove="Images\Table_Taken.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Table_Double_Free.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Restaurant_Background.png" />
+    <Resource Include="Images\Table.png" />
+    <Resource Include="Images\Table_Double.png" />
+    <Resource Include="Images\Table_Double_Taken.png" />
+    <Resource Include="Images\Table_Free.png" />
+    <Resource Include="Images\Table_Taken.png" />
+  </ItemGroup>
+
+</Project>

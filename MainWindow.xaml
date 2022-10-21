@@ -1,0 +1,105 @@
+﻿<Window x:Class="Bookings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bookings"
+        mc:Ignorable="d"
+        Title=".NET Restaurant Bookings" 
+        Height="768" Width="1366" 
+        MinHeight="768" MinWidth="1366" 
+        >
+
+    <Grid ShowGridLines="True" Background="DarkSeaGreen">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content=".NET Restaurangens Bokningssystem" Grid.Row="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid.Background>
+                <ImageBrush ImageSource = "/Images/Restaurant_Background.png"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table_5" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table4_6" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table4_7" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>                
+            </Button>
+            <Button x:Name="Table4_8" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table8_10" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table_Double.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Table8_11" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Table_Double.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Grid>
+    
+</Window>
