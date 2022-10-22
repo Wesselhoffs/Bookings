@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Bookings.Controls.HeaderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bookings.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="1366">
+    <Grid>
+        <Label Content=".NET restaurangens bokningssystem" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+    </Grid>
+</UserControl>

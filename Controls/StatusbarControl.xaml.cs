@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Bookings.Controls
 {
     /// <summary>
-    /// Interaction logic for TableLayoutControl.xaml
+    /// Interaction logic for StatusbarControl.xaml
     /// </summary>
-    public partial class TableLayoutControl : UserControl
+    public partial class StatusbarControl : UserControl
     {
-        public TableLayoutControl()
+        public StatusbarControl()
         {
             InitializeComponent();
         }

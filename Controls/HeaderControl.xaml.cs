@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Bookings.Controls
 {
     /// <summary>
-    /// Interaction logic for DateTimeTableControl.xaml
+    /// Interaction logic for HeaderControl.xaml
     /// </summary>
-    public partial class DateTimeTableControl : UserControl
+    public partial class HeaderControl : UserControl
     {
-        public DateTimeTableControl()
+        public HeaderControl()
         {
             InitializeComponent();
         }

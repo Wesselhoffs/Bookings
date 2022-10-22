@@ -4,40 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookings" 
-        xmlns:controls="clr-namespace:Bookings.Controls"
+        xmlns:controls="clr-namespace:Bookings.Controls" 
+        xmlns:UserControl="clr-namespace:Bookings.View"
         mc:Ignorable="d"
         Title=".NET Restaurant Bookings" 
         Height="768" Width="1366" 
         MinHeight="768" MinWidth="1366">
 
     <!--Root Grid-->
-    <Grid ShowGridLines="True" Background="DarkSeaGreen">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Grid Background="DarkSeaGreen">
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="600"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <Label Content=".NET restaurangens bokningssystem" Grid.Row="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-
-        <!--Restaurant Table Layout Control-->
-        <controls:TableLayoutControl Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Width="660" HorizontalAlignment="Right"/>
-
+        <controls:HeaderControl Grid.Row="0"/>
         
-        <!--Date, Timeslot And Table Control-->
-        <controls:DateTimeTableControl  Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="3"/>
+        <!--User View-->
+        <UserControl:UserView Grid.Row="2"/>
+        
+        <!--Status Bar-->
+        <controls:StatusbarControl Grid.Row="4"/>
 
     </Grid>
 
