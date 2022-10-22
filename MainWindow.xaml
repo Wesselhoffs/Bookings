@@ -8,15 +8,14 @@
         mc:Ignorable="d"
         Title=".NET Restaurant Bookings" 
         Height="768" Width="1366" 
-        MinHeight="768" MinWidth="1366" 
-        >
+        MinHeight="768" MinWidth="1366">
 
     <!--Root Grid-->
     <Grid ShowGridLines="True" Background="DarkSeaGreen">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -29,13 +28,13 @@
             <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <!--Header--> 
+
+        <!--Header-->
         <Label Content=".NET Restaurangens Bokningssystem" Grid.Row="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-        
+
         <!--Restaurant Table Layout Control-->
-        <controls:TableLayoutControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="-6,51,6,0"/>
-        
+        <controls:TableLayoutControl Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Width="660" HorizontalAlignment="Right"/>
+
         <!--Date Time And Table Control-->
         <Calendar x:Name="Booking_Calendar" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
 
