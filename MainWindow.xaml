@@ -3,32 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bookings"
+        xmlns:local="clr-namespace:Bookings" 
+        xmlns:controls="clr-namespace:Bookings.Controls"
         mc:Ignorable="d"
         Title=".NET Restaurant Bookings" 
         Height="768" Width="1366" 
         MinHeight="768" MinWidth="1366" 
         >
-    <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">                          
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.6" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
 
+    <!--Root Grid-->
     <Grid ShowGridLines="True" Background="DarkSeaGreen">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -46,79 +29,17 @@
             <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <!--Header--> 
         <Label Content=".NET Restaurangens Bokningssystem" Grid.Row="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        
+        <!--Restaurant Table Layout Control-->
+        <controls:TableLayoutControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="-6,51,6,0"/>
+        
+        <!--Date Time And Table Control-->
+        <Calendar x:Name="Booking_Calendar" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
 
-        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
-            <Grid.Background>
-                <ImageBrush ImageSource = "/Images/Restaurant_Background.png"/>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #1">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #2">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>                
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #3">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #4">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_5" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #5">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #6">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table_7" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #7">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_8" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #8">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table.png"/>
-                </Button.Background>                
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_10" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table_Double.png"/>
-                </Button.Background>
-            </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_11" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #10">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Table_Double.png"/>
-                </Button.Background>
-            </Button>
-        </Grid>
+
     </Grid>
-    
+
 </Window>

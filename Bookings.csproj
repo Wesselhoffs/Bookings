@@ -30,4 +30,8 @@
     <Resource Include="Images\Table_Taken.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Classes\" />
+  </ItemGroup>
+
 </Project>
