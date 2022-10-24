@@ -150,10 +150,6 @@ namespace Bookings.ViewModel
             }
         }   
 
-
-
-
-
         public async Task LoadBookingCalendarAsync()
         {
             BookingsCalendar = await BookingsDataProvider.LoadBookingsAsync();

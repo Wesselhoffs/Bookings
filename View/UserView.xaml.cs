@@ -39,7 +39,7 @@ namespace Bookings.View
         {
             if (ViewModel.SelectedTable != null && ViewModel.SelectedHourOpen != null)
             {
-                ViewModel.SelectedTable.BookedCustomer = new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", 123);
+                ViewModel.SelectedTable.BookedCustomer = new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", "123");
                 ViewModel.DisplayActiveBookings();                
             }
         }

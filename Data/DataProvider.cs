@@ -24,11 +24,15 @@ namespace Bookings.Data
         {            
             return 10;      // Implement external config file loader here instead of static nr.
         }
+        internal DateTime GetOpeningTime()
+        {
+           return new DateTime(01, 01, 01, 14, 0, 0); // Implement external config file loader here instead of static nr.
+        }
 
         
         public async Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync()
         {
-            
+            await Task.Delay(10);
             Dictionary<DateOnly, Restaurant_Day> bookings = new();
 
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
@@ -44,5 +48,6 @@ namespace Bookings.Data
         {
             throw new NotImplementedException();
         }
+
     }   
 }

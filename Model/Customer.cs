@@ -8,7 +8,7 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? SpecialRequests { get; set; }
-        public int? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         public Customer()
         {
@@ -20,7 +20,7 @@
             this.SpecialRequests = null;
             this.PhoneNumber = null;
         }
-        public Customer(Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, int? phoneNumber)
+        public Customer(Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber)
         {
             this.CustomerTable = table;
             this.CustomerBookedhour = hour;
@@ -28,7 +28,7 @@
             this.LastName = lastName;
             this.SpecialRequests = specialRequests;
             this.PhoneNumber = phoneNumber;
-            this.BookingInformation = hour.Time + " " + table.Name + " " + firstName + " " + lastName;
+            this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t\t" + lastName;
         }
 
     }
