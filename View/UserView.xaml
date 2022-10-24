@@ -129,12 +129,12 @@
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </Viewbox.Effect>
             </Viewbox>
-            <ListView x:Name="timeslotListView" ItemsSource="{Binding HoursOpen, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedHourOpen, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="1" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="timeslotListView" ItemsSource="{Binding HoursOpen, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Time" SelectedItem="{Binding SelectedHourOpen, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="1" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>

@@ -30,7 +30,7 @@ namespace Bookings.Data
         
         public async Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync()
         {
-            await Task.Delay(1000);
+            
             Dictionary<DateOnly, Restaurant_Day> bookings = new();
 
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);

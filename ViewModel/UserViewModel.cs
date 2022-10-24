@@ -21,7 +21,7 @@ namespace Bookings.ViewModel
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
-        public ObservableCollection<Table> ActiveBookingsForSelectedDay { get; } = new();
+        public ObservableCollection<Restaurant_Day> ActiveBookingsForSelectedDay { get; } = new();
 
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
@@ -71,7 +71,7 @@ namespace Bookings.ViewModel
         private void SetSelectedRestaurantDay()
         {
             DateOnly searchDate = DateOnly.FromDateTime(SelectedCalendarDate);
-            BookingsCalendar.TryGetValue(searchDate, out Restaurant_Day day);
+            BookingsCalendar.TryGetValue(searchDate, out Restaurant_Day? day);
             SelectedRestaurantDay = day;
             if (RestaurantDay.Any() || day == null)
             {
@@ -116,7 +116,14 @@ namespace Bookings.ViewModel
         }
         private void DisplayActiveBookings()
         {
-            
+            if (ActiveBookingsForSelectedDay.Any() || SelectedRestaurantDay == null)
+            {
+                ActiveBookingsForSelectedDay.Clear();
+            }
+            if (SelectedRestaurantDay != null && SelectedRestaurantDay.ActiveBooking == true)
+            {
+
+            }
         }
 
 
