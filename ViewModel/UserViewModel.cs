@@ -21,6 +21,7 @@ namespace Bookings.ViewModel
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
+        public ObservableCollection<Table> ActiveBookingsForSelectedDay { get; } = new();
 
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
@@ -30,10 +31,14 @@ namespace Bookings.ViewModel
             set
             {
                 selectedCalendarDate = value;
-                DisplaySelectedRestaurantDayHours();
+                SetSelectedRestaurantDay();
+                DisplayHoursOpenForSelectedDay();
+                DisplayActiveBookings();
                 RaisePropertyChanged();
             }
         }
+
+
         public Restaurant_Day? SelectedRestaurantDay
         {
             get => selectedRestaurantDay;
@@ -49,7 +54,7 @@ namespace Bookings.ViewModel
             set
             {
                 selectedHourOpen = value;
-                DisplaySelectedHourOpenTables();
+                DisplayTablesForSelectedHourOpen();
                 RaisePropertyChanged();
             }
         }
@@ -63,9 +68,41 @@ namespace Bookings.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void DisplaySelectedHourOpenTables()
+        private void SetSelectedRestaurantDay()
         {
-            if (Tables.Any() || selectedHourOpen == null)
+            DateOnly searchDate = DateOnly.FromDateTime(SelectedCalendarDate);
+            BookingsCalendar.TryGetValue(searchDate, out Restaurant_Day day);
+            SelectedRestaurantDay = day;
+            if (RestaurantDay.Any() || day == null)
+            {
+                RestaurantDay.Clear();
+                HoursOpen.Clear();
+                Tables.Clear();
+            }
+            if (day != null)
+            {
+                RestaurantDay.Add(day);
+            }
+        }
+        private void DisplayHoursOpenForSelectedDay()
+        {
+            if (RestaurantDay.Any())
+            {
+                RestaurantDay.Clear();
+                HoursOpen.Clear();
+                Tables.Clear();
+            }
+            if (SelectedRestaurantDay != null)
+            {
+                foreach (var hourOpen in SelectedRestaurantDay.Timeslots)
+                {
+                    HoursOpen.Add(hourOpen);
+                }
+            }
+        }
+        private void DisplayTablesForSelectedHourOpen()
+        {
+            if (Tables.Any() || SelectedHourOpen == null)
             {
                 Tables.Clear();
             }
@@ -77,28 +114,14 @@ namespace Bookings.ViewModel
                 }
             }
         }
-
-        private void DisplaySelectedRestaurantDayHours()
+        private void DisplayActiveBookings()
         {
-            DateOnly searchDate = DateOnly.FromDateTime(SelectedCalendarDate);
-            BookingsCalendar.TryGetValue(searchDate, out Restaurant_Day day);
-            SelectedRestaurantDay = day;
-
-            if (RestaurantDay.Any() || day == null)
-            {
-                RestaurantDay.Clear();
-                HoursOpen.Clear();
-                Tables.Clear();
-            }
-            if (day != null)
-            {
-                RestaurantDay.Add(day);
-                foreach (var hourOpen in day.Timeslots)
-                {
-                    HoursOpen.Add(hourOpen);
-                }
-            }
+            
         }
+
+
+
+
 
         public async Task LoadBookingCalendarAsync()
         {
