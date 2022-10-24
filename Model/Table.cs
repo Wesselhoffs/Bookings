@@ -17,13 +17,13 @@ namespace Bookings.Model
         {
             this.IsBooked = false;
             this.Name = null;
-            this.BookedCustomer = new();
+            this.BookedCustomer = null;
         }
         public Table(string? name)
         {
             this.IsBooked = false;
             this.Name = name;
-            this.BookedCustomer = new();
+            this.BookedCustomer = null;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bookings.Data;
+using Bookings.Model;
 using Bookings.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +37,11 @@ namespace Bookings.View
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(ViewModel.SelectedCalendarDate.ToString());
+            if (ViewModel.SelectedTable != null && ViewModel.SelectedHourOpen != null)
+            {
+                ViewModel.SelectedTable.BookedCustomer = new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", 123);
+                ViewModel.DisplayActiveBookings();                
+            }
         }
     }
 }

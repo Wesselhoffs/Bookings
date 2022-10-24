@@ -16,12 +16,14 @@ namespace Bookings.ViewModel
         private DateTime selectedCalendarDate;
         private Restaurant_Day selectedRestaurantDay;
         private HoursOpen selectedHourOpen;
+        private Table selectedTable;
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
-        public ObservableCollection<Restaurant_Day> ActiveBookingsForSelectedDay { get; } = new();
+        public ObservableCollection<Customer> ActiveBookingsForSelectedDay { get; } = new();
 
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
@@ -58,6 +60,17 @@ namespace Bookings.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public Table SelectedTable
+        {
+            get => selectedTable;
+            set
+            {
+                selectedTable = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         public UserViewModel(IDataProvider bookingsDataProvider)
         {
@@ -114,17 +127,28 @@ namespace Bookings.ViewModel
                 }
             }
         }
-        private void DisplayActiveBookings()
+        public void DisplayActiveBookings()
         {
             if (ActiveBookingsForSelectedDay.Any() || SelectedRestaurantDay == null)
             {
                 ActiveBookingsForSelectedDay.Clear();
             }
-            if (SelectedRestaurantDay != null && SelectedRestaurantDay.ActiveBooking == true)
+            if (SelectedRestaurantDay != null)
             {
+                var bookedCustomers = from hoursOpen in SelectedRestaurantDay.Timeslots
+                                      from table in hoursOpen.Tables
+                                      where table.BookedCustomer != null
+                                      select table.BookedCustomer;
 
+                foreach (var customer in bookedCustomers)
+                {
+                    if (customer != null)
+                    {
+                        ActiveBookingsForSelectedDay.Add(customer);
+                    }
+                }
             }
-        }
+        }   
 
 
 

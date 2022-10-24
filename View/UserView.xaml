@@ -134,13 +134,13 @@
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTable, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
             <Label Content ="bokningar för valt datum" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24" />
-            <ListView x:Name="activeBookingsView" ItemsSource="{Binding ActiveBookingsForSelectedDay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="2" Margin="50,35,50,35">
+            <ListView x:Name="activeBookingsView" ItemsSource="{Binding ActiveBookingsForSelectedDay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookingInformation" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2" Margin="50,35,50,35">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
