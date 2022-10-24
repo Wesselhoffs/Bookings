@@ -1,22 +1,16 @@
 ﻿using Bookings.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookings.Model
 {
     public class HoursOpen
     {
         public string Time { get; set; }
-        public bool ActiveBooking { get; set; }
         public Table[] Tables { get; set; }
 
         public HoursOpen(DateTime time)
         {
             int tablesAmount = new DataProvider().GetAmountOfTables();
-            this.ActiveBooking = false;
             this.Tables = new Table[tablesAmount];
             for (int i = 0; i < tablesAmount; i++)
             {
