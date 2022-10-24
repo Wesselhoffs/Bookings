@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
     <None Remove="Images\Restaurant_Background.png" />
     <None Remove="Images\Table.png" />
     <None Remove="Images\Table_Double.png" />
@@ -15,6 +17,7 @@
     <None Remove="Images\Table_Double_Taken.png" />
     <None Remove="Images\Table_Free.png" />
     <None Remove="Images\Table_Taken.png" />
+    <None Remove="LICENSE.txt" />
   </ItemGroup>
 
   <ItemGroup>

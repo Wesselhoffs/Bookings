@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Bookings.Model
 {
 
-    internal class Table
+    public class Table
     {
         public bool IsBooked { get; set; }
         public Customer? BookedCustomer { get; set; }
@@ -15,7 +15,7 @@ namespace Bookings.Model
         public Table()
         {
             this.IsBooked = false;
-            this.BookedCustomer = null;
+            this.BookedCustomer = new();
         }
     }
 }

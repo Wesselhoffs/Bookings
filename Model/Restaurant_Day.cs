@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bookings.Model
 {
-    internal class Restaurant_Day
+    public class Restaurant_Day
     {
         public DateOnly date { get; set; }
         public bool ActiveBooking { get; set; }
@@ -15,13 +15,25 @@ namespace Bookings.Model
 
         public Restaurant_Day()
         {
+            int openHoursAmount = new DataProvider().GetOpenHours();
             this.date = new DateOnly();
             this.ActiveBooking = false;
-            this.Timeslots = new HoursOpen[new DataProvider().GetOpenHours()];
+            this.Timeslots = new HoursOpen[openHoursAmount];
+            for (int i = 0; i < openHoursAmount; i++)
+            {
+                Timeslots[i] = new HoursOpen();
+            }
         }
-        public Restaurant_Day(HoursOpen[] timeslots)
+        public Restaurant_Day(DateOnly date)
         {
-            this.Timeslots = timeslots;
+            int openHoursAmount = new DataProvider().GetOpenHours();
+            this.date = date;
+            this.ActiveBooking = false;
+            this.Timeslots = new HoursOpen[openHoursAmount];
+            for (int i = 0; i < openHoursAmount; i++)
+            {
+                Timeslots[i] = new HoursOpen();
+            }
         }
     }
 }

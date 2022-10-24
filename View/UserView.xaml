@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Bookings.View" 
              xmlns:UserControl="clr-namespace:Bookings.Controls"
+             xmlns:vm="clr-namespace:Bookings.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1366">
     <UserControl.Resources>
@@ -35,6 +36,9 @@
 
         <!--Table Layout Grid-->
         <Grid HorizontalAlignment="Right" Width="660">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
+            </Grid.Effect>
             <Grid.Background>
                 <ImageBrush ImageSource = "../Images/Restaurant_Background.png"/>
             </Grid.Background>
@@ -120,17 +124,17 @@
             <Label Content ="tider" Grid.Column="1" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24" />
             <Label Content ="bord" Grid.Column="3" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24" />
             <Viewbox VerticalAlignment="Top" Margin="0,28,0,0" Height="196" Grid.Column="0">
-                <Calendar x:Name="Booking_Calendar" BorderBrush="Gray" BorderThickness="2,2,2,2"/>
+                <Calendar x:Name="Booking_Calendar" SelectedDate="{Binding SelectedCalendarDate, UpdateSourceTrigger=PropertyChanged}" SelectionMode="SingleDate" BorderBrush="Gray" BorderThickness="2,2,2,2"/>
                 <Viewbox.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </Viewbox.Effect>
             </Viewbox>
-            <ListView x:Name="timeslotListView" BorderBrush="Gray" Grid.Column="1" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="timeslotListView" ItemsSource="{Binding HoursOpen, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedHourOpen, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="1" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <ListView x:Name="tablesListView" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
@@ -141,7 +145,7 @@
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,35,0,0" VerticalAlignment="Top" >
+            <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,35,0,0" VerticalAlignment="Top" Click="NewBookingButton_Click" >
                 <Button.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>

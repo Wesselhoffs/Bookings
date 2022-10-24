@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="1366">
     <Grid>
-        <Label Content=".NET restaurangens bokningssystem" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Content=".NET restaurangens bokningssystem" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Cascadia Mono" FontSize="34"/>
     </Grid>
 </UserControl>

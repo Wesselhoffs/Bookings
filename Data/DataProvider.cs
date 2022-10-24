@@ -7,33 +7,42 @@ using System.Threading.Tasks;
 
 namespace Bookings.Data
 {
-    interface IDataProvider
+    public interface IDataProvider
     {
         int GetAmountOfTables();
         int GetOpenHours();
 
         Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync();
-        Task<Dictionary<DateOnly, Restaurant_Day>> SaveBookingsAsync();
+        Task<IEnumerable<KeyValuePair<DateOnly, Restaurant_Day>>> SaveBookingsAsync();
     }
-    internal class DataProvider : IDataProvider
+    public class DataProvider : IDataProvider
     {     
         public int GetAmountOfTables()
         {
-            return 10;
+            return 10;      // Implement external config file loader here instead of static nr.
         }
 
         public int GetOpenHours()
         {            
-            return 10;
+            return 10;      // Implement external config file loader here instead of static nr.
         }
 
+        
         public async Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync()
         {
             await Task.Delay(1000);
-            return new Dictionary<DateOnly, Restaurant_Day>();
+            Dictionary<DateOnly, Restaurant_Day> bookings = new();
+
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            for (DateOnly date = DateOnly.FromDateTime(DateTime.Now); date < today.AddYears(1);)
+            {
+                bookings.Add(date, new Restaurant_Day(date));
+                date = date.AddDays(1);
+            }
+            return bookings;            
         }
 
-        public async Task<Dictionary<DateOnly, Restaurant_Day>> SaveBookingsAsync()
+        public async Task<IEnumerable<KeyValuePair<DateOnly, Restaurant_Day>>> SaveBookingsAsync()
         {
             throw new NotImplementedException();
         }
