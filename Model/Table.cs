@@ -1,23 +1,27 @@
-﻿namespace Bookings.Model
+﻿using System;
+using System.Collections.Generic;
+
+namespace Bookings.Model
 {
 
     public class Table
     {
         public bool IsBooked { get; set; }
         public string? Name { get; set; }
-        public Customer? BookedCustomer { get; set; }
-        
-        public Table()
+        public int? FreeChairs { get; set; }
+        public List<Customer> BookedCustomer { get; } = new();
+     
+        public Table(int chairs)
         {
             this.IsBooked = false;
             this.Name = null;
-            this.BookedCustomer = null;
+            this.FreeChairs = chairs;
         }
-        public Table(string? name)
+        public Table(string? name,int chairs)
         {
             this.IsBooked = false;
             this.Name = name;
-            this.BookedCustomer = null;
+            this.FreeChairs = chairs;
         }
     }
 }

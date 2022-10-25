@@ -41,7 +41,7 @@ namespace Bookings.Data
                 bookings.Add(date, new Restaurant_Day(date));
                 date = date.AddDays(1);
             }
-            return bookings;            
+            return bookings;
         }
 
         public async Task<IEnumerable<KeyValuePair<DateOnly, Restaurant_Day>>> SaveBookingsAsync()

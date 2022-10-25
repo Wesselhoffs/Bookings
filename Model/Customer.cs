@@ -9,6 +9,7 @@
         public string? LastName { get; set; }
         public string? SpecialRequests { get; set; }
         public string? PhoneNumber { get; set; }
+        public int? ChairsNeeded { get; set; }
 
         public Customer()
         {
@@ -19,22 +20,25 @@
             this.LastName = null;
             this.SpecialRequests = null;
             this.PhoneNumber = null;
+            this.ChairsNeeded = null;
         }
-        public Customer(Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber)
+        public Customer(Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber, int chairsNeeded)
         {
             this.CustomerTable = table;
+            CustomerTable.FreeChairs -= chairsNeeded;
             this.CustomerBookedhour = hour;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.SpecialRequests = specialRequests;
             this.PhoneNumber = phoneNumber;
+            this.ChairsNeeded = chairsNeeded;
             if (table.Name == "Bord 10")
             {
-                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t" + lastName;
+                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + ", " + chairsNeeded +" platser\t" + lastName;
             }
             else
             {
-                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t\t" + lastName;
+                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + ", " + chairsNeeded + " platser\t" + lastName;
             }
         }
 

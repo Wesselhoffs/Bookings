@@ -98,7 +98,7 @@
                     <ImageBrush ImageSource="../Images/Table.png"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_9" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_9" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9" Click="Table8_9_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="../Images/Table_Double.png"/>
                 </Button.Background>
@@ -110,7 +110,7 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Column="2" Grid.Row="0">
+        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -134,7 +134,7 @@
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <ListView x:Name="tablesListView" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTable, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
+            <ListView x:Name="tablesListView" Focusable="True" ItemsSource="{Binding Tables, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTable, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" Grid.Column="2" Margin="0,30,0,0" Width="190" Height="190" VerticalAlignment="Top"  FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2,2,2,2">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title=".NET Restaurant Bookings" 
         Height="768" Width="1366" 
-        MinHeight="768" MinWidth="1366">
+        MinHeight="700" MinWidth="683">
 
     <!--Root Grid-->
     <Grid Background="DarkSeaGreen">
@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="600"/>
+            <RowDefinition Height="30*" MaxHeight="600" MinHeight="500"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>

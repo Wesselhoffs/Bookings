@@ -2,6 +2,7 @@
 using Bookings.Model;
 using Bookings.ViewModel;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -39,9 +40,14 @@ namespace Bookings.View
         {
             if (ViewModel.SelectedTable != null && ViewModel.SelectedHourOpen != null)
             {
-                ViewModel.SelectedTable.BookedCustomer = new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", "123");
-                ViewModel.DisplayActiveBookings();                
+                ViewModel.SelectedTable.BookedCustomer.Add(new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", "123", 4));
+                ViewModel.DisplayActiveBookings();
             }
+        }
+
+        private void Table8_9_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
