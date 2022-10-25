@@ -28,7 +28,14 @@
             this.LastName = lastName;
             this.SpecialRequests = specialRequests;
             this.PhoneNumber = phoneNumber;
-            this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t\t" + lastName;
+            if (table.Name == "Bord 10")
+            {
+                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t" + lastName;
+            }
+            else
+            {
+                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + "\t\t\t" + lastName;
+            }
         }
 
     }

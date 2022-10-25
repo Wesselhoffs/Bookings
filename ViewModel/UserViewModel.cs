@@ -138,6 +138,7 @@ namespace Bookings.ViewModel
                 var bookedCustomers = from hoursOpen in SelectedRestaurantDay.Timeslots
                                       from table in hoursOpen.Tables
                                       where table.BookedCustomer != null
+                                      orderby table.BookedCustomer.CustomerBookedhour.Time
                                       select table.BookedCustomer;
 
                 foreach (var customer in bookedCustomers)
