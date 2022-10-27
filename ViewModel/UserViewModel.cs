@@ -1,12 +1,17 @@
 ﻿using Bookings.Data;
 using Bookings.Model;
+using Bookings.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.RightsManagement;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Bookings.ViewModel
 {
@@ -27,6 +32,9 @@ namespace Bookings.ViewModel
 
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
+        private ImageBrush[] tableBackground = new ImageBrush[10];
+
+
         public DateTime SelectedCalendarDate
         {
             get => selectedCalendarDate;
@@ -39,6 +47,7 @@ namespace Bookings.ViewModel
                 RaisePropertyChanged();
             }
         }
+
 
 
         public Restaurant_Day? SelectedRestaurantDay
@@ -57,8 +66,55 @@ namespace Bookings.ViewModel
             {
                 selectedHourOpen = value;
                 DisplayTablesForSelectedHourOpen();
+                UpdateTableBackgrounds();
                 RaisePropertyChanged();
             }
+        }
+
+        private void UpdateTableBackgrounds()
+        {
+            int counter = 0;
+            var fourSeatTables = from table in Tables
+                                 where table.TotalChairs < 5
+                                 select table;
+            var eightSeatTables = from table in Tables
+                                  where table.TotalChairs > 4
+                                  select table;
+            if (SelectedHourOpen == null)
+            {
+                foreach (var table in fourSeatTables)
+                {
+                    var background = new ImageBrush();
+                    background.ImageSource = new BitmapImage(new Uri("../../../Images/Table4_.png", UriKind.Relative));
+                    TableBackground[counter] = background;
+                    counter++;
+                }
+                foreach (var table in eightSeatTables)
+                {
+                    var background = new ImageBrush();
+                    background.ImageSource = new BitmapImage(new Uri("../../../Images/Table8_.png", UriKind.Relative));
+                    TableBackground[counter] = background;
+                    counter++;
+                }
+            }
+            else
+            {
+                foreach (var table in fourSeatTables)
+                {
+                    var background = new ImageBrush();
+                    background.ImageSource = new BitmapImage(new Uri("../../../Images/Table4_" + table.FreeChairs + ".png", UriKind.Relative));
+                    TableBackground[counter] = background;
+                    counter++;
+                }
+                foreach (var table in eightSeatTables)
+                {
+                    var background = new ImageBrush();
+                    background.ImageSource = new BitmapImage(new Uri("../../../Images/Table8_" + table.FreeChairs + ".png", UriKind.Relative));
+                    TableBackground[counter] = background;
+                    counter++;
+                }
+            }
+
         }
 
         public Table SelectedTable
@@ -71,6 +127,7 @@ namespace Bookings.ViewModel
             }
         }
 
+        public ImageBrush[] TableBackground { get => tableBackground; set => tableBackground = value; }
 
         public UserViewModel(IDataProvider bookingsDataProvider)
         {
@@ -149,7 +206,9 @@ namespace Bookings.ViewModel
                     }
                 }
             }
-        }   
+        }
+
+
 
         public async Task LoadBookingCalendarAsync()
         {

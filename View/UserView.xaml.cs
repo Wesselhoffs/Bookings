@@ -6,6 +6,10 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Bookings.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System;
 
 namespace Bookings.View
 {
@@ -38,16 +42,23 @@ namespace Bookings.View
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.SelectedTable != null && ViewModel.SelectedHourOpen != null)
+            if (KitchenLayout.Visibility == Visibility.Visible)
             {
-                ViewModel.SelectedTable.BookedCustomer.Add(new Customer(ViewModel.SelectedTable, ViewModel.SelectedHourOpen, "TestFirstName", "TestLastName", "Spec Req", "123", 4));
-                ViewModel.DisplayActiveBookings();
+                AddbookingGrid.Visibility = Visibility.Visible;
+                KitchenLayout.Visibility = Visibility.Hidden;
             }
+            else
+            {
+                AddbookingGrid.Visibility = Visibility.Hidden;
+                KitchenLayout.Visibility = Visibility.Visible;
+            }
+      
         }
 
         private void Table8_9_Click(object sender, RoutedEventArgs e)
         {
-            
+            var backGround = new ImageBrush();
+            backGround.ImageSource = new BitmapImage(new Uri("../../../Images/Table", UriKind.Relative));
         }
     }
 }

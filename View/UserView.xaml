@@ -30,12 +30,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid HorizontalAlignment="Right" Width="660">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -43,11 +43,11 @@
                 <ImageBrush ImageSource = "../Images/Restaurant_Background.png"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -60,56 +60,84 @@
             </Grid.RowDefinitions>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #1">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[1], UpdateSourceTrigger=PropertyChanged}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #2">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[1]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #3">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[2]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #4">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[3]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_5" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #5">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[4]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #6">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[5]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table_7" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #7">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[6]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_8" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #8">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[7]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_9" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9" Click="Table8_9_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table_Double.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[8]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_10" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #10">
                 <Button.Background>
-                    <ImageBrush ImageSource="../Images/Table_Double.png"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[9]}" />
                 </Button.Background>
             </Button>
         </Grid>
 
+        <!--Add Customer Grid-->
+        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Hidden">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="customerInformation" Margin="10">
+                <Label Content="customer information" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="14"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <Label Content=" first name"/>
+                        <TextBox x:Name="customerFirstNameTextBox"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel x:Name="customerLastName"></StackPanel>
+            <StackPanel x:Name="customerBookedHour"></StackPanel>
+            <StackPanel x:Name="customerSpecReq"></StackPanel>
+            <StackPanel x:Name="customerTable"></StackPanel>
+            <StackPanel x:Name="customerPhoneNumber"></StackPanel>
+            <StackPanel x:Name="customerChairsNeeded"></StackPanel>
+        </Grid>
+
+        <!--Date and Bookings Grid-->
         <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -160,7 +188,7 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>
             </Button>
-            
+
         </Grid>
     </Grid>
 </UserControl>
