@@ -60,7 +60,7 @@
             </Grid.RowDefinitions>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #1">
                 <Button.Background>
-                    <ImageBrush ImageSource="{Binding TableBackground[1], UpdateSourceTrigger=PropertyChanged}"/>
+                    <ImageBrush ImageSource="{Binding TableBackground[0]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #2">
@@ -80,7 +80,7 @@
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_5" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #5">
                 <Button.Background>
-                    <ImageBrush ImageSource="{Binding TableBackground[4]}"/>
+                    <ImageBrush  ImageSource="{Binding TableBackground[4]}"/>
                 </Button.Background>
             </Button>
             <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #6">
@@ -183,7 +183,7 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>
             </Button>
-            <Button x:Name="SearchBookingButton" Content="sök bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,0,0,35" VerticalAlignment="Bottom" >
+            <Button x:Name="SearchBookingButton" Content="sök bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,0,0,35" VerticalAlignment="Bottom" Click="SearchBookingButton_Click" >
                 <Button.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>

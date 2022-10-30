@@ -24,6 +24,7 @@ namespace Bookings.View
             InitializeComponent();
             ViewModel = new UserViewModel(new DataProvider());
             DataContext = ViewModel;
+            ViewModel.UpdateTableBackgrounds();
             Loaded += UserView_Loaded;
         }
 
@@ -57,8 +58,16 @@ namespace Bookings.View
 
         private void Table8_9_Click(object sender, RoutedEventArgs e)
         {
-            var backGround = new ImageBrush();
-            backGround.ImageSource = new BitmapImage(new Uri("../../../Images/Table", UriKind.Relative));
+            
+        }
+
+        private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
+        {
+            var tempTable = ViewModel.SelectedTable;
+            var tempHour = ViewModel.SelectedHourOpen;
+            ViewModel.SelectedTable.BookedCustomer.Add(new(tempTable, tempHour, "TestName", "TestLastname", "Spec Req", "123", 1));
+            ViewModel.DisplayActiveBookings();
+            ViewModel.UpdateTableBackgrounds();
         }
     }
 }
