@@ -1,15 +1,12 @@
 ﻿using Bookings.Data;
 using Bookings.Model;
-using Bookings.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.RightsManagement;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -33,7 +30,6 @@ namespace Bookings.ViewModel
 
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
-        private ImageSource[] tableBackground = new ImageSource[10];
 
 
         public DateTime SelectedCalendarDate
@@ -91,60 +87,69 @@ namespace Bookings.ViewModel
             var eightSeatTables = from table in Tables
                                   where table.TotalChairs > 4
                                   select table;
-            if (!TableBackground.Any())
+            try
             {
-                int tablesAmount = BookingsDataProvider.GetAmountOfTables();
-                for (int i = 0; i < tablesAmount; i++)
+
+
+                if (!TableBackground.Any())
                 {
-                    if (i <= 7)
+                    int tablesAmount = BookingsDataProvider.GetAmountOfTables();
+                    for (int i = 0; i < tablesAmount; i++)
                     {
-                        var brush = new ImageBrush();
-                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4.png", UriKind.Relative));
-                        TableBackground.Add(brush.ImageSource);
+                        if (i <= 7)
+                        {
+                            var brush = new ImageBrush();
+                            brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4.png", UriKind.Relative));
+                            TableBackground.Add(brush.ImageSource);
+                        }
+                        else
+                        {
+                            var brush = new ImageBrush();
+                            brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8.png", UriKind.Relative));
+                            TableBackground.Add(brush.ImageSource);
+                        }
                     }
-                    else
+                }
+                else if (TableBackground.Any() && SelectedHourOpen == null)
+                {
+                    int tablesAmount = BookingsDataProvider.GetAmountOfTables();
+                    for (int i = 0; i < tablesAmount; i++)
+                    {
+                        if (i <= 7)
+                        {
+                            var brush = new ImageBrush();
+                            brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4.png", UriKind.Relative));
+                            TableBackground[i] = brush.ImageSource;
+                        }
+                        else
+                        {
+                            var brush = new ImageBrush();
+                            brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8.png", UriKind.Relative));
+                            TableBackground[i] = brush.ImageSource;
+                        }
+                    }
+                }
+                else if (SelectedHourOpen != null && Tables.Any())
+                {
+                    foreach (var table in fourSeatTables)
                     {
                         var brush = new ImageBrush();
-                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8.png", UriKind.Relative));
-                        TableBackground.Add(brush.ImageSource);
+                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4_" + table.FreeChairs + ".png", UriKind.Relative));
+                        TableBackground[counter] = brush.ImageSource;
+                        counter++;
+                    }
+                    foreach (var table in eightSeatTables)
+                    {
+                        var brush = new ImageBrush();
+                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8_" + table.FreeChairs + ".png", UriKind.Relative));
+                        TableBackground[counter] = brush.ImageSource;
+                        counter++;
                     }
                 }
             }
-            else if (TableBackground.Any() && SelectedHourOpen == null)
+            catch (Exception ex)
             {
-                int tablesAmount = BookingsDataProvider.GetAmountOfTables();
-                for (int i = 0; i < tablesAmount; i++)
-                {
-                    if (i <= 7)
-                    {
-                        var brush = new ImageBrush();
-                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4.png", UriKind.Relative));
-                        TableBackground[i] = brush.ImageSource;
-                    }
-                    else
-                    {
-                        var brush = new ImageBrush();
-                        brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8.png", UriKind.Relative));
-                        TableBackground[i] = brush.ImageSource;
-                    }
-                }
-            }
-            else if (SelectedHourOpen != null && Tables.Any())
-            {
-                foreach (var table in fourSeatTables)
-                {
-                    var brush = new ImageBrush();
-                    brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table4_" + table.FreeChairs + ".png", UriKind.Relative));
-                    TableBackground[counter] = brush.ImageSource;
-                    counter++;
-                }
-                foreach (var table in eightSeatTables)
-                {
-                    var brush = new ImageBrush();
-                    brush.ImageSource = new BitmapImage(new Uri("../../../Images/Table8_" + table.FreeChairs + ".png", UriKind.Relative));
-                    TableBackground[counter] = brush.ImageSource;
-                    counter++;
-                }
+                BookingsDataProvider.LogExceptions(ex.ToString());
             }
         }
 

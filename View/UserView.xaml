@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -111,34 +111,128 @@
         </Grid>
 
         <!--Add Customer Grid-->
-        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Hidden">
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
-            </Grid.Effect>
+        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="customerInformation" Margin="10">
-                <Label Content="customer information" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="14"/>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel>
-                        <Label Content=" first name"/>
-                        <TextBox x:Name="customerFirstNameTextBox"/>
-                    </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="kundinformation" Grid.ColumnSpan="4" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24"/>
+                <StackPanel Width="200" Grid.Row="1" Grid.Column="1">
+                    <Label Content="förnamn" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox x:Name="customerFirstNameTextbox" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Label Content="efternamn" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox x:Name="customerLastNameTextbox" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Label Content="telefonnummer" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox x:Name="customerPhoneNrTextbox" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel x:Name="customerLastName"></StackPanel>
-            <StackPanel x:Name="customerBookedHour"></StackPanel>
-            <StackPanel x:Name="customerSpecReq"></StackPanel>
-            <StackPanel x:Name="customerTable"></StackPanel>
-            <StackPanel x:Name="customerPhoneNumber"></StackPanel>
-            <StackPanel x:Name="customerChairsNeeded"></StackPanel>
+                <StackPanel Width="200" Grid.Row="1" Grid.Column="2">
+                    <Label Content="speciella önskemål" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox x:Name="customerSpecReqTextbox" TextWrapping="WrapWithOverflow" Height="135" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="bord, datum och platser" Grid.ColumnSpan="4" VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24"/>
+                <StackPanel Width="200" Grid.Row="1" Grid.Column="1">
+                    <Label Content="valt datum" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <DatePicker SelectedDate="{Binding SelectedCalendarDate, UpdateSourceTrigger=PropertyChanged}" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <DatePicker.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </DatePicker.Effect>
+                    </DatePicker>
+                    <Label Content="vald tidpunkt" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox Text="{Binding SelectedHourOpen.Time, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Label Content="valt bord" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox Text="{Binding SelectedTable.Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Width="200" Grid.Row="1" Grid.Column="2">
+                    <Label Content="totala platser" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox Text="{Binding SelectedTable.TotalChairs, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Label Content="lediga plaser" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <TextBox Text="{Binding SelectedTable.FreeChairs, UpdateSourceTrigger=Explicit, Mode=OneWay}" IsReadOnly="True" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Label Content="platser att boka" FontFamily="Cascadia Mono" FontSize="16"/>
+                    <ComboBox x:Name="chairsNeeded_combobox" ItemsSource="{Binding SelectedTable.BookableChairs, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="25" FontFamily="Cascadia Mono" FontSize="16">
+                        <ComboBox.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                        </ComboBox.Effect>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="cancel_booking_button" Content="avbryt bokning" Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="18" Height="80" Width="200">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                    </Button.Effect>
+                </Button>
+                <Button x:Name="add_booking_button" Content="lägg till bokning" Grid.Column="2" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="18" Height="80" Width="200" Click="add_booking_button_Click">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                    </Button.Effect>
+                </Button>
+            </Grid>
         </Grid>
 
         <!--Date and Bookings Grid-->
-        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid">
+        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid" UseLayoutRounding="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
