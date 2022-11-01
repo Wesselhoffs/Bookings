@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -13,7 +14,8 @@ namespace Bookings.Data
         int GetAmountOfTables();
         int GetOpenHours();
 
-        void TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings);
+        Task TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings);
+        Task DeSerializeCustomers();
 
         Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync();
         Task LogExceptions(string ex);
@@ -70,16 +72,30 @@ namespace Bookings.Data
             {
             }
         }
-        public void TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings)
+        public async Task TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings)
         {
-            var bookedDays = bookings.Values.Where(v => v.ContainsBooking == true).ToList();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Restaurant_Day));
-            using (StreamWriter sw = new("Test.xml"))
+            var customers = from day in bookings.Values
+                            from hours in day.Timeslots
+                            from timeslot in hours.Tables
+                            from customerlist in timeslot.BookedCustomer
+                            where customerlist != null
+                            select customerlist;
+            var myList = customers.ToList();
+
+
+            using (FileStream fs = File.Create("testfile.json"))
             {
-                foreach (var day in bookedDays)
-                {
-                    xmlSerializer.Serialize(sw, day);
-                }
+                await JsonSerializer.SerializeAsync(fs, myList);
+                await fs.DisposeAsync();
+            }
+            await DeSerializeCustomers();
+        }
+
+        public async Task DeSerializeCustomers()
+        {
+            using (FileStream fs = File.OpenRead("testfile.json"))
+            {
+                var list = await JsonSerializer.DeserializeAsync<List<Customer>>(fs);
             }
         }
     }

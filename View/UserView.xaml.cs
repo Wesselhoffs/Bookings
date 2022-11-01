@@ -69,7 +69,7 @@ namespace Bookings.View
 
         private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SerializeXml();
+            ViewModel.SerializeThis();
         }
 
         private void add_booking_button_Click(object sender, RoutedEventArgs e)
@@ -97,16 +97,13 @@ namespace Bookings.View
                     }
                     else if (housePhone.IsMatch(phonerNr) || cellPhone.IsMatch(phonerNr))
                     {
-                        ViewModel.SelectedTable.BookedCustomer.Add(new(tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
-                        ViewModel.SelectedRestaurantDay.ContainsBooking = true;
+                        DateOnly date = DateOnly.FromDateTime(ViewModel.SelectedCalendarDate);
+                        ViewModel.SelectedTable.BookedCustomer.Add(new(date, tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
                         ViewModel.DisplayActiveBookings();
                         ViewModel.UpdateTableBackgrounds();
                         KitchenLayout.Visibility = Visibility.Visible;
                         AddbookingGrid.Visibility = Visibility.Hidden;
-                        customerFirstNameTextbox.Clear();
-                        customerLastNameTextbox.Clear();
-                        customerPhoneNrTextbox.Clear();
-                        customerSpecReqTextbox.Clear();
+                        ClearAllText();
                     }
                     else
                     {
@@ -127,17 +124,22 @@ namespace Bookings.View
             }
         }
 
+        private void ClearAllText()
+        {
+            customerFirstNameTextbox.Clear();
+            customerLastNameTextbox.Clear();
+            customerPhoneNrTextbox.Clear();
+            customerSpecReqTextbox.Clear();
+        }
+
         private void cancel_booking_button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mboxResult = MessageBox.Show("Är du säker på att du vill avbryta?\nAll text går förlorad.","Ångra bokning",MessageBoxButton.YesNo);
+            MessageBoxResult mboxResult = MessageBox.Show("Är du säker på att du vill avbryta?\nAll text går förlorad.", "Ångra bokning", MessageBoxButton.YesNo);
             if (mboxResult == MessageBoxResult.Yes)
             {
                 KitchenLayout.Visibility = Visibility.Visible;
                 AddbookingGrid.Visibility = Visibility.Hidden;
-                customerFirstNameTextbox.Clear();
-                customerLastNameTextbox.Clear();
-                customerPhoneNrTextbox.Clear();
-                customerSpecReqTextbox.Clear();
+                ClearAllText();
             }
             else
             {
@@ -147,8 +149,13 @@ namespace Bookings.View
 
         private void activeBookingsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("poop");   
-            
+            MessageBox.Show("poop");
+
+        }
+
+        private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Deserialize();
         }
     }
 }

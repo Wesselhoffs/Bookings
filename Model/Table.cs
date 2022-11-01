@@ -14,7 +14,6 @@ namespace Bookings.Model
         private int? freeChairs;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public bool IsBooked { get; set; }
         public string? Name { get; set; }
         public int? TotalChairs { get; set; }
         public int? FreeChairs
@@ -29,13 +28,9 @@ namespace Bookings.Model
         }
         public List<Customer> BookedCustomer { get; } = new();
         public ObservableCollection<int?> BookableChairs { get; } = new();
-        public Table()
-        {
 
-        }
         public Table(int chairs)
         {
-            this.IsBooked = false;
             this.Name = null;
             this.TotalChairs = chairs;
             this.FreeChairs = chairs;
@@ -43,7 +38,6 @@ namespace Bookings.Model
         }
         public Table(string? name, int chairs)
         {
-            this.IsBooked = false;
             this.Name = name;
             this.TotalChairs = chairs;
             this.FreeChairs = chairs;

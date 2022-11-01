@@ -8,10 +8,6 @@ namespace Bookings.Model
         public string Time { get; set; }
         public Table[] Tables { get; set; }
 
-        public HoursOpen()
-        {
-
-        }
         public HoursOpen(DateTime time)
         {
             int tablesAmount = new DataProvider().GetAmountOfTables();
@@ -29,10 +25,6 @@ namespace Bookings.Model
                 }
             }
             Time = time.ToString("HH:mm") + " - " + time.AddHours(1).ToString("HH:mm");
-        }
-        public HoursOpen(Table[] tables)
-        {
-            this.Tables = tables;
         }
     }
 }

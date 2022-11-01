@@ -1,9 +1,15 @@
-﻿namespace Bookings.Model
+﻿using System;
+using System.Text.Json.Serialization;
+
+namespace Bookings.Model
 {
     public class Customer
     {
+        [JsonIgnore]
         public Table? CustomerTable { get; set; }
+        [JsonIgnore]
         public HoursOpen? CustomerBookedhour { get; set; }
+        public DateOnly BookedDate { get; set; }
         public string? BookingInformation { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -23,8 +29,9 @@
             this.PhoneNumber = null;
             this.ChairsNeeded = null;
         }
-        public Customer(Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber, int chairsNeeded)
+        public Customer(DateOnly bookedDate, Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber, int chairsNeeded)
         {
+            this.BookedDate = bookedDate;
             this.CustomerTable = table;
             CustomerTable.FreeChairs -= chairsNeeded;
             this.CustomerBookedhour = hour;

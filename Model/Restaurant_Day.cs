@@ -7,7 +7,6 @@ namespace Bookings.Model
     {
         public DateOnly date { get; set; }
         public HoursOpen[] Timeslots { get; set; }
-        public bool ContainsBooking { get; set; }
 
         public Restaurant_Day()
         {
@@ -16,7 +15,6 @@ namespace Bookings.Model
         {
             int openHoursAmount = new DataProvider().GetOpenHours();
             this.date = date;
-            this.ContainsBooking = false;
             this.Timeslots = new HoursOpen[openHoursAmount];
             DateTime dateTime = new DataProvider().GetOpeningTime();
             for (int i = 0; i < openHoursAmount; i++)
