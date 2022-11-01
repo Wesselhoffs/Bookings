@@ -11,6 +11,7 @@
         public string? PhoneNumber { get; set; }
         public int? ChairsNeeded { get; set; }
 
+       
         public Customer()
         {
             this.CustomerTable = null;

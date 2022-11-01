@@ -29,7 +29,10 @@ namespace Bookings.Model
         }
         public List<Customer> BookedCustomer { get; } = new();
         public ObservableCollection<int?> BookableChairs { get; } = new();
+        public Table()
+        {
 
+        }
         public Table(int chairs)
         {
             this.IsBooked = false;

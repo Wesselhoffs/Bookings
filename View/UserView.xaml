@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -111,7 +111,7 @@
         </Grid>
 
         <!--Add Customer Grid-->
-        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
+        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
@@ -218,7 +218,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="cancel_booking_button" Content="avbryt bokning" Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="18" Height="80" Width="200">
+                <Button x:Name="cancel_booking_button" Content="avbryt bokning" Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="18" Height="80" Width="200" Click="cancel_booking_button_Click">
                     <Button.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                     </Button.Effect>
@@ -262,7 +262,7 @@
                 </ListView.Effect>
             </ListView>
             <Label Content ="bokningar för valt datum" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="top" HorizontalAlignment="Center" FontFamily="Cascadia Mono" FontSize="24" />
-            <ListView x:Name="activeBookingsView" ItemsSource="{Binding ActiveBookingsForSelectedDay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookingInformation" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2" Margin="50,35,50,35">
+            <ListView x:Name="activeBookingsView" ItemsSource="{Binding ActiveBookingsForSelectedDay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookingInformation" MouseDoubleClick="activeBookingsView_MouseDoubleClick"  Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2" Margin="50,35,50,35">
                 <ListView.Effect>
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>

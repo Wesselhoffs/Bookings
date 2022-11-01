@@ -8,6 +8,10 @@ namespace Bookings.Model
         public string Time { get; set; }
         public Table[] Tables { get; set; }
 
+        public HoursOpen()
+        {
+
+        }
         public HoursOpen(DateTime time)
         {
             int tablesAmount = new DataProvider().GetAmountOfTables();

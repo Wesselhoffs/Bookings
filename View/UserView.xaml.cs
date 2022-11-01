@@ -69,7 +69,7 @@ namespace Bookings.View
 
         private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.SerializeXml();
         }
 
         private void add_booking_button_Click(object sender, RoutedEventArgs e)
@@ -88,28 +88,36 @@ namespace Bookings.View
 
             if (chairsNeeded_combobox.SelectedItem != null && int.TryParse(chairsNeeded_combobox.SelectedItem.ToString(), out chairsNeeded))
             {
-                if (string.IsNullOrWhiteSpace(lastName))
+                if (chairsNeeded > 0)
                 {
-                    MessageBox.Show("Du måste ange minst ett efternamn till bokningen.", "Efternamn krävs");
-                    return;
-                }
-                else if (housePhone.IsMatch(phonerNr) || cellPhone.IsMatch(phonerNr))
-                {
-                    ViewModel.SelectedTable.BookedCustomer.Add(new(tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
-                    ViewModel.DisplayActiveBookings();
-                    ViewModel.UpdateTableBackgrounds();
-                    KitchenLayout.Visibility = Visibility.Visible;
-                    AddbookingGrid.Visibility = Visibility.Hidden;
-                    customerFirstNameTextbox.Clear();
-                    customerLastNameTextbox.Clear();
-                    customerPhoneNrTextbox.Clear();
-                    customerSpecReqTextbox.Clear();
+                    if (string.IsNullOrWhiteSpace(lastName))
+                    {
+                        MessageBox.Show("Du måste ange minst ett efternamn till bokningen.", "Efternamn krävs");
+                        return;
+                    }
+                    else if (housePhone.IsMatch(phonerNr) || cellPhone.IsMatch(phonerNr))
+                    {
+                        ViewModel.SelectedTable.BookedCustomer.Add(new(tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
+                        ViewModel.SelectedRestaurantDay.ContainsBooking = true;
+                        ViewModel.DisplayActiveBookings();
+                        ViewModel.UpdateTableBackgrounds();
+                        KitchenLayout.Visibility = Visibility.Visible;
+                        AddbookingGrid.Visibility = Visibility.Hidden;
+                        customerFirstNameTextbox.Clear();
+                        customerLastNameTextbox.Clear();
+                        customerPhoneNrTextbox.Clear();
+                        customerSpecReqTextbox.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Du har inte angett ett giltigt telefonnummer.\n+467XXXXXXXX, 00467XXXXXXXX, 07XXXXXXXX\n" +
+                                        $"Eller hemnummer inkl. riktnummer.", "Ogiltigt telefonnummer");
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"Du har inte angett ett giltigt telefonnummer.\n+467XXXXXXXX, 00467XXXXXXXX, 07XXXXXXXX\n" +
-                                    $"Eller hemnummer inkl. riktnummer.", "Ogiltigt telefonnummer");
-                    return;
+                    MessageBox.Show("Du kan inte boka 0 stolar. Välj minst 1.\nFinns det inte mer, välj en annan dag, eller ett annat bord.", "Fel antal stolar");
                 }
             }
             else
@@ -117,6 +125,30 @@ namespace Bookings.View
                 MessageBox.Show("Du har inte angivit antal stolar till bokningen.", "Ange antal platser");
                 return;
             }
+        }
+
+        private void cancel_booking_button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mboxResult = MessageBox.Show("Är du säker på att du vill avbryta?\nAll text går förlorad.","Ångra bokning",MessageBoxButton.YesNo);
+            if (mboxResult == MessageBoxResult.Yes)
+            {
+                KitchenLayout.Visibility = Visibility.Visible;
+                AddbookingGrid.Visibility = Visibility.Hidden;
+                customerFirstNameTextbox.Clear();
+                customerLastNameTextbox.Clear();
+                customerPhoneNrTextbox.Clear();
+                customerSpecReqTextbox.Clear();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void activeBookingsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("poop");   
+            
         }
     }
 }

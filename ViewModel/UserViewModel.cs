@@ -20,17 +20,13 @@ namespace Bookings.ViewModel
         private HoursOpen selectedHourOpen;
         private Table selectedTable;
 
-
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
         public ObservableCollection<Customer> ActiveBookingsForSelectedDay { get; } = new();
         public ObservableCollection<ImageSource> TableBackground { get; } = new();
-
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
-
-
 
         public DateTime SelectedCalendarDate
         {
@@ -45,9 +41,7 @@ namespace Bookings.ViewModel
             }
         }
 
-
-
-        public Restaurant_Day? SelectedRestaurantDay
+        public Restaurant_Day SelectedRestaurantDay
         {
             get => selectedRestaurantDay;
             set
@@ -89,8 +83,6 @@ namespace Bookings.ViewModel
                                   select table;
             try
             {
-
-
                 if (!TableBackground.Any())
                 {
                     int tablesAmount = BookingsDataProvider.GetAmountOfTables();
@@ -152,7 +144,6 @@ namespace Bookings.ViewModel
                 BookingsDataProvider.LogExceptions(ex.ToString());
             }
         }
-
 
 
         public UserViewModel(IDataProvider bookingsDataProvider)
@@ -223,7 +214,6 @@ namespace Bookings.ViewModel
                                       from customers in table.BookedCustomer
                                       select customers;
 
-
                 foreach (var customer in bookedCustomers)
                 {
                     if (customer != null)
@@ -233,8 +223,10 @@ namespace Bookings.ViewModel
                 }
             }
         }
-
-
+        public void SerializeXml()
+        {
+            BookingsDataProvider.TestSerialize(BookingsCalendar);
+        }
 
         public async Task LoadBookingCalendarAsync()
         {
