@@ -9,7 +9,7 @@ namespace Bookings.Model
         public Table? CustomerTable { get; set; }
         [JsonIgnore]
         public HoursOpen? CustomerBookedhour { get; set; }
-        public DateOnly BookedDate { get; set; }
+        public string BookedDate { get; set; }
         public string? BookingInformation { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -31,7 +31,7 @@ namespace Bookings.Model
         }
         public Customer(DateOnly bookedDate, Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber, int chairsNeeded)
         {
-            this.BookedDate = bookedDate;
+            this.BookedDate = bookedDate.ToString();
             this.CustomerTable = table;
             CustomerTable.FreeChairs -= chairsNeeded;
             this.CustomerBookedhour = hour;

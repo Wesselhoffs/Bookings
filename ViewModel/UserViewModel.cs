@@ -225,7 +225,7 @@ namespace Bookings.ViewModel
         }
         public void SerializeThis()
         {
-            BookingsDataProvider.TestSerialize(BookingsCalendar);
+            BookingsDataProvider.SaveBookingsAsync(BookingsCalendar);
         }
 
         public async Task LoadBookingCalendarAsync()
@@ -235,7 +235,6 @@ namespace Bookings.ViewModel
 
         internal void Deserialize()
         {
-            BookingsDataProvider.DeSerializeCustomers();
         }
     }
 }

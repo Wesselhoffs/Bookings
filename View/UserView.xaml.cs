@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace Bookings.View
 {
@@ -22,21 +23,38 @@ namespace Bookings.View
         private readonly UserViewModel ViewModel;
         public UserView()
         {
-            InitializeComponent();
-            ViewModel = new UserViewModel(new DataProvider());
+            InitializeComponent();          
+            ViewModel = new UserViewModel(new DataProvider(GetFilePath()));
             DataContext = ViewModel;
-            ViewModel.UpdateTableBackgrounds();
             Loaded += UserView_Loaded;
+        }
+
+        private string? GetFilePath()
+        {
+            MessageBoxResult mResult = MessageBox.Show("Vill du öppna en egen databasfil?", "Ladda Databas", MessageBoxButton.YesNo);
+            if (mResult == MessageBoxResult.Yes)
+            {
+                OpenFileDialog fDialog = new OpenFileDialog();
+                fDialog.InitialDirectory = Environment.CurrentDirectory;
+                fDialog.FileName = "BookingsDatabase";
+                fDialog.DefaultExt = ".json";
+                fDialog.Filter = "Json files (.json)|*.json";
+                fDialog.ShowDialog();
+
+                return fDialog.FileName;
+            }
+            else
+                return null;
         }
 
         private async void UserView_Loaded(object sender, RoutedEventArgs e)
         {
             await ViewModel.LoadBookingCalendarAsync();
             DateTime today = DateTime.Now;
-            ViewModel.SelectedCalendarDate = today;
             Booking_Calendar.DisplayDateStart = today;
             today = today.AddYears(1);
             Booking_Calendar.DisplayDateEnd = today;
+            ViewModel.UpdateTableBackgrounds();
         }
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
@@ -155,7 +173,7 @@ namespace Bookings.View
 
         private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Deserialize();
+            ViewModel.SerializeThis();
         }
     }
 }

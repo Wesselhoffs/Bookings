@@ -11,18 +11,33 @@ namespace Bookings.Data
 {
     public interface IDataProvider
     {
+        public string SavefilePath { get; set; }
         int GetAmountOfTables();
         int GetOpenHours();
 
-        Task TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings);
-        Task DeSerializeCustomers();
-
         Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync();
+        Task SaveBookingsAsync(Dictionary<DateOnly, Restaurant_Day> bookings);
         Task LogExceptions(string ex);
-        Task<IEnumerable<KeyValuePair<DateOnly, Restaurant_Day>>> SaveBookingsAsync();
     }
     public class DataProvider : IDataProvider
     {
+        public string SavefilePath { get; set; }
+        public DataProvider()
+        {
+            SavefilePath = "BookingsDatabase.json";
+        }
+        public DataProvider(string? savefilePath)
+        {
+            if (!string.IsNullOrWhiteSpace(savefilePath))
+            {
+                SavefilePath = savefilePath;
+            }
+            else
+            {
+                SavefilePath = "BookingsDatabase.json";
+            }
+        }
+
         public int GetAmountOfTables()
         {
             return 10;      // Implement external config file loader here instead of static nr.
@@ -49,12 +64,37 @@ namespace Bookings.Data
                 bookings.Add(date, new Restaurant_Day(date));
                 date = date.AddDays(1);
             }
-            return bookings;
+            if (File.Exists(SavefilePath))
+            {
+                bookings = await LoadBookedCustomersFromFile(bookings);
+                return bookings;
+            }
+            else
+            {
+                return bookings;
+            }
         }
 
-        public async Task<IEnumerable<KeyValuePair<DateOnly, Restaurant_Day>>> SaveBookingsAsync()
+        private async Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookedCustomersFromFile(Dictionary<DateOnly, Restaurant_Day> bookings)
         {
-            throw new NotImplementedException();
+            var alreadyBookedCustomers = await DeSerializeCustomers();
+            foreach (var customer in alreadyBookedCustomers)
+            {
+                DateOnly dateKeyValue = DateOnly.Parse(customer.BookedDate);
+                string customerHour, customerTable;
+                customerHour = customer.BookingInformation.Substring(0, 13);
+                customerTable = customer.BookingInformation.Substring(customer.BookingInformation.IndexOf(Environment.NewLine) + 2, 7).Trim(',');
+                bookings.TryGetValue(dateKeyValue, out Restaurant_Day rDay);
+
+                var hourIndex = Array.FindIndex(rDay.Timeslots, t => t.Time == customerHour);
+                var tableIndex = Array.FindIndex(rDay.Timeslots[hourIndex].Tables, t => t.Name == customerTable);
+
+                customer.CustomerBookedhour = rDay.Timeslots[hourIndex];
+                customer.CustomerTable = rDay.Timeslots[hourIndex].Tables[tableIndex];
+                customer.CustomerTable.FreeChairs -= customer.ChairsNeeded;
+                customer.CustomerTable.BookedCustomer.Add(customer);
+            }
+            return bookings;
         }
 
         public async Task LogExceptions(string ex)
@@ -72,7 +112,7 @@ namespace Bookings.Data
             {
             }
         }
-        public async Task TestSerialize(Dictionary<DateOnly, Restaurant_Day> bookings)
+        public async Task SaveBookingsAsync(Dictionary<DateOnly, Restaurant_Day> bookings)
         {
             var customers = from day in bookings.Values
                             from hours in day.Timeslots
@@ -83,20 +123,22 @@ namespace Bookings.Data
             var myList = customers.ToList();
 
 
-            using (FileStream fs = File.Create("testfile.json"))
+            using (FileStream fs = File.Create(SavefilePath))
             {
                 await JsonSerializer.SerializeAsync(fs, myList);
                 await fs.DisposeAsync();
             }
-            await DeSerializeCustomers();
         }
 
-        public async Task DeSerializeCustomers()
+        private async Task<List<Customer>> DeSerializeCustomers()
         {
-            using (FileStream fs = File.OpenRead("testfile.json"))
+            var customers = new List<Customer>();
+            using (FileStream fs = File.OpenRead(SavefilePath))
             {
-                var list = await JsonSerializer.DeserializeAsync<List<Customer>>(fs);
+                customers = await JsonSerializer.DeserializeAsync<List<Customer>>(fs);
+                await fs.DisposeAsync();
             }
+            return customers;
         }
     }
 }
