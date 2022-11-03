@@ -1,17 +1,14 @@
 ﻿using Bookings.Data;
 using Bookings.Model;
 using Bookings.ViewModel;
-using System.Windows;
+using Microsoft.Win32;
+using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using Bookings.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System;
-using System.Text.RegularExpressions;
-using Microsoft.Win32;
 
 namespace Bookings.View
 {
@@ -32,20 +29,29 @@ namespace Bookings.View
 
         private string? GetFilePath()
         {
-            MessageBoxResult mResult = MessageBox.Show("Vill du öppna en egen databasfil?", "Ladda Databas", MessageBoxButton.YesNo);
-            if (mResult == MessageBoxResult.Yes)
+            try
             {
-                OpenFileDialog fDialog = new OpenFileDialog();
-                fDialog.InitialDirectory = Environment.CurrentDirectory;
-                fDialog.FileName = "BookingsDatabase";
-                fDialog.DefaultExt = ".json";
-                fDialog.Filter = "Json files (.json)|*.json";
-                fDialog.ShowDialog();
 
-                return fDialog.FileName;
+                MessageBoxResult mResult = MessageBox.Show("Vill du öppna en egen databasfil?", "Ladda Databas", MessageBoxButton.YesNo);
+                if (mResult == MessageBoxResult.Yes)
+                {
+                    OpenFileDialog fDialog = new OpenFileDialog();
+                    fDialog.InitialDirectory = Environment.CurrentDirectory;
+                    fDialog.FileName = "BookingsDatabase";
+                    fDialog.DefaultExt = ".json";
+                    fDialog.Filter = "Json files (.json)|*.json";
+                    fDialog.ShowDialog();
+
+                    return fDialog.FileName;
+                }
+                else
+                    return null;
             }
-            else
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Något gick fel");
                 return null;
+            }
         }
 
         private async void UserView_Loaded(object sender, RoutedEventArgs e)
@@ -67,17 +73,9 @@ namespace Bookings.View
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (KitchenLayout.Visibility == Visibility.Visible)
-            {
-                AddbookingGrid.Visibility = Visibility.Visible;
-                KitchenLayout.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                AddbookingGrid.Visibility = Visibility.Hidden;
-                KitchenLayout.Visibility = Visibility.Visible;
-            }
-
+            AddbookingGrid.Visibility = Visibility.Visible;
+            KitchenLayout.Visibility = Visibility.Hidden;
+            NewBookingButton.Visibility = Visibility.Hidden;
         }
 
         private void Table8_9_Click(object sender, RoutedEventArgs e)
@@ -121,6 +119,7 @@ namespace Bookings.View
                         ViewModel.UpdateTableBackgrounds();
                         KitchenLayout.Visibility = Visibility.Visible;
                         AddbookingGrid.Visibility = Visibility.Hidden;
+                        NewBookingButton.Visibility = Visibility.Visible;
                         ClearAllText();
                     }
                     else
@@ -157,6 +156,7 @@ namespace Bookings.View
             {
                 KitchenLayout.Visibility = Visibility.Visible;
                 AddbookingGrid.Visibility = Visibility.Hidden;
+                NewBookingButton.Visibility = Visibility.Visible;
                 ClearAllText();
             }
             else
@@ -170,23 +170,51 @@ namespace Bookings.View
             if (activeBookingsView.SelectedItem != null)
             {
                 var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
-                MessageBox.Show($"Kund & Bokningsinformation\n" +
-                                $"---------------\n\n" +
-                                $"Datum:\t\t{selectedCustomer.BookedDate}\n" +
-                                $"Namn:\t\t{selectedCustomer.FirstName} {selectedCustomer.LastName}\n" +
-                                $"Telefonnummer:\t{selectedCustomer.PhoneNumber}\n" +
-                                $"Tid:\t\t{selectedCustomer.CustomerBookedhour.Time}\n" +
-                                $"Bord:\t\t{selectedCustomer.CustomerTable.Name}\n" +
-                                $"Bokade stolar:\t{selectedCustomer.ChairsNeeded}\n" +
-                                $"Önskemål:\t{selectedCustomer.SpecialRequests}", "Bokningsinformation");
+                ShowCustomerInformation(selectedCustomer, "Bokningsinformation", MessageBoxButton.OK);
             }
             else
                 return;
         }
 
+        private static MessageBoxResult ShowCustomerInformation(Customer selectedCustomer, string header, MessageBoxButton mBoxButtons)
+        {
+            MessageBoxResult mBoxResult = MessageBox.Show($"Kund & Bokningsinformation\n" +
+                            $"---------------\n\n" +
+                            $"Datum:\t\t{selectedCustomer.BookedDate}\n" +
+                            $"Namn:\t\t{selectedCustomer.FirstName} {selectedCustomer.LastName}\n" +
+                            $"Telefonnummer:\t{selectedCustomer.PhoneNumber}\n" +
+                            $"Tid:\t\t{selectedCustomer.CustomerBookedhour.Time}\n" +
+                            $"Bord:\t\t{selectedCustomer.CustomerTable.Name}\n" +
+                            $"Bokade stolar:\t{selectedCustomer.ChairsNeeded}\n" +
+                            $"Önskemål:\t{selectedCustomer.SpecialRequests}", header, mBoxButtons);
+            return mBoxResult;
+        }
+
         private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SerializeThis();
+            if (activeBookingsView.SelectedItem != null)
+            {
+                var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
+                MessageBoxResult mBoxResult = ShowCustomerInformation(selectedCustomer, "VILL DU TA BORT BOKNINGEN", MessageBoxButton.YesNo);
+                if (mBoxResult == MessageBoxResult.Yes)
+                {
+                    selectedCustomer.CustomerTable.FreeChairs += selectedCustomer.ChairsNeeded;
+                    int index = selectedCustomer.CustomerTable.BookedCustomer.FindIndex(c => c.BookingInformation.Equals(selectedCustomer.BookingInformation));
+                    selectedCustomer.CustomerTable.BookedCustomer.RemoveAt(index);
+                    selectedCustomer = null;
+                    GC.Collect();
+                    ViewModel.DisplayActiveBookings();
+                    ViewModel.UpdateTableBackgrounds();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du har inte valt någon bokning i fönstret \"Bokningar för valt datum\"\nMarkera en bokning för att ta bort den", "Välj en bokning");
+            }
         }
     }
 }

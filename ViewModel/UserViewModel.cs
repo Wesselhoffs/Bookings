@@ -19,6 +19,7 @@ namespace Bookings.ViewModel
         private Restaurant_Day selectedRestaurantDay;
         private HoursOpen selectedHourOpen;
         private Table selectedTable;
+        private Customer selectedCustomer;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
@@ -28,7 +29,7 @@ namespace Bookings.ViewModel
         public ObservableCollection<ImageSource> TableBackground { get; } = new();
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
- 
+
         public DateTime SelectedCalendarDate
         {
             get => selectedCalendarDate;
@@ -69,6 +70,19 @@ namespace Bookings.ViewModel
             set
             {
                 selectedTable = value;
+                RaisePropertyChanged();
+            }
+        }
+        public Customer SelectedCustomer
+        {
+            get => selectedCustomer;
+            set
+            {
+                selectedCustomer = value;
+                if (selectedCustomer != null)
+                {
+                    SelectedHourOpen = selectedCustomer.CustomerBookedhour;
+                }
                 RaisePropertyChanged();
             }
         }
@@ -236,6 +250,11 @@ namespace Bookings.ViewModel
 
         internal void Deserialize()
         {
+        }
+
+        internal async Task LogException(Exception ex)
+        {
+            await BookingsDataProvider.LogExceptions(ex.ToString());
         }
     }
 }

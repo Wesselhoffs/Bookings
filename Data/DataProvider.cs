@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Bookings.Data
 {
@@ -67,6 +66,7 @@ namespace Bookings.Data
             if (File.Exists(SavefilePath))
             {
                 bookings = await LoadBookedCustomersFromFile(bookings);
+                GC.Collect();
                 return bookings;
             }
             else
@@ -120,23 +120,37 @@ namespace Bookings.Data
                             from customerlist in timeslot.BookedCustomer
                             where customerlist != null
                             select customerlist;
-            var myList = customers.ToList();
 
+            var myBookedCustomers = customers.ToList();
 
-            using (FileStream fs = File.Create(SavefilePath))
+            try
             {
-                await JsonSerializer.SerializeAsync(fs, myList);
-                await fs.DisposeAsync();
+                using (FileStream fs = File.Create(SavefilePath))
+                {
+                    await JsonSerializer.SerializeAsync(fs, myBookedCustomers);
+                    await fs.DisposeAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await LogExceptions(ex.ToString());
             }
         }
 
         private async Task<List<Customer>> DeSerializeCustomers()
         {
             var customers = new List<Customer>();
-            using (FileStream fs = File.OpenRead(SavefilePath))
+            try
             {
-                customers = await JsonSerializer.DeserializeAsync<List<Customer>>(fs);
-                await fs.DisposeAsync();
+                using (FileStream fs = File.OpenRead(SavefilePath))
+                {
+                    customers = await JsonSerializer.DeserializeAsync<List<Customer>>(fs);
+                    await fs.DisposeAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await LogExceptions(ex.ToString());
             }
             return customers;
         }
