@@ -23,7 +23,7 @@ namespace Bookings.View
         private readonly UserViewModel ViewModel;
         public UserView()
         {
-            InitializeComponent();          
+            InitializeComponent();
             ViewModel = new UserViewModel(new DataProvider(GetFilePath()));
             ViewModel.UpdateTableBackgrounds();
             DataContext = ViewModel;
@@ -167,8 +167,21 @@ namespace Bookings.View
 
         private void activeBookingsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("poop");
-
+            if (activeBookingsView.SelectedItem != null)
+            {
+                var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
+                MessageBox.Show($"Kund & Bokningsinformation\n" +
+                                $"---------------\n\n" +
+                                $"Datum:\t\t{selectedCustomer.BookedDate}\n" +
+                                $"Namn:\t\t{selectedCustomer.FirstName} {selectedCustomer.LastName}\n" +
+                                $"Telefonnummer:\t{selectedCustomer.PhoneNumber}\n" +
+                                $"Tid:\t\t{selectedCustomer.CustomerBookedhour.Time}\n" +
+                                $"Bord:\t\t{selectedCustomer.CustomerTable.Name}\n" +
+                                $"Bokade stolar:\t{selectedCustomer.ChairsNeeded}\n" +
+                                $"Önskemål:\t{selectedCustomer.SpecialRequests}", "Bokningsinformation");
+            }
+            else
+                return;
         }
 
         private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
