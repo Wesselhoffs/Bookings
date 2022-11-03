@@ -17,7 +17,7 @@ namespace Bookings.Model
         public string? PhoneNumber { get; set; }
         public int? ChairsNeeded { get; set; }
 
-       
+
         public Customer()
         {
             this.CustomerTable = null;
@@ -42,7 +42,7 @@ namespace Bookings.Model
             this.ChairsNeeded = chairsNeeded;
             if (table.Name == "Bord 10")
             {
-                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + ", " + chairsNeeded +" platser\t" + lastName;
+                this.BookingInformation = hour.Time + "\t\t" + firstName + "\r\n" + table.Name + ", " + chairsNeeded + " platser\t" + lastName;
             }
             else
             {

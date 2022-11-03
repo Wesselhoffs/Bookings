@@ -3,7 +3,6 @@ using Bookings.Model;
 using Bookings.ViewModel;
 using Microsoft.Win32;
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -159,10 +158,6 @@ namespace Bookings.View
                 NewBookingButton.Visibility = Visibility.Visible;
                 ClearAllText();
             }
-            else
-            {
-                return;
-            }
         }
 
         private void activeBookingsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -172,8 +167,6 @@ namespace Bookings.View
                 var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
                 ShowCustomerInformation(selectedCustomer, "Bokningsinformation", MessageBoxButton.OK);
             }
-            else
-                return;
         }
 
         private static MessageBoxResult ShowCustomerInformation(Customer selectedCustomer, string header, MessageBoxButton mBoxButtons)
@@ -205,10 +198,6 @@ namespace Bookings.View
                     GC.Collect();
                     ViewModel.DisplayActiveBookings();
                     ViewModel.UpdateTableBackgrounds();
-                }
-                else
-                {
-                    return;
                 }
             }
             else

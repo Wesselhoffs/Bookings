@@ -47,7 +47,7 @@ namespace Bookings.Model
             if (BookableChairs.Any())
             {
                 BookableChairs.Clear();
-            }            
+            }
             for (int? i = this.FreeChairs; i >= 0; i--)
             {
                 BookableChairs.Add(i);
