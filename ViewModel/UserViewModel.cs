@@ -28,6 +28,7 @@ namespace Bookings.ViewModel
         public ObservableCollection<ImageSource> TableBackground { get; } = new();
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
+ 
         public DateTime SelectedCalendarDate
         {
             get => selectedCalendarDate;

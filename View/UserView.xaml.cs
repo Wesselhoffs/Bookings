@@ -25,6 +25,7 @@ namespace Bookings.View
         {
             InitializeComponent();          
             ViewModel = new UserViewModel(new DataProvider(GetFilePath()));
+            ViewModel.UpdateTableBackgrounds();
             DataContext = ViewModel;
             Loaded += UserView_Loaded;
         }
@@ -54,7 +55,6 @@ namespace Bookings.View
             Booking_Calendar.DisplayDateStart = today;
             today = today.AddYears(1);
             Booking_Calendar.DisplayDateEnd = today;
-            ViewModel.UpdateTableBackgrounds();
         }
         protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
