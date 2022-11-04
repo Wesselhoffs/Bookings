@@ -13,6 +13,7 @@ namespace Bookings.Data
         public string SavefilePath { get; set; }
         int GetAmountOfTables();
         int GetOpenHours();
+        int GetAmountOfChairsPerHour();
 
         Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync();
         Task SaveBookingsAsync(Dictionary<DateOnly, Restaurant_Day> bookings);
@@ -40,6 +41,10 @@ namespace Bookings.Data
         public int GetAmountOfTables()
         {
             return 10;      // Implement external config file loader here instead of static nr.
+        }
+        public int GetAmountOfChairsPerHour()
+        {
+            return 24;      // Implement external config file loader here instead of static nr.
         }
 
         public int GetOpenHours()

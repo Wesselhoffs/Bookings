@@ -3,6 +3,7 @@ using Bookings.Model;
 using Bookings.ViewModel;
 using Microsoft.Win32;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,42 +102,76 @@ namespace Bookings.View
             Regex housePhone = new(@"\b\d{2,4}-\d{5,6}");
             Regex cellPhone = new(@"^(([+]46)|(0046)|(0))\s*(7[0236])\s*(\d{4})\s*(\d{3})$");
 
-            if (chairsNeeded_combobox.SelectedItem != null && int.TryParse(chairsNeeded_combobox.SelectedItem.ToString(), out chairsNeeded))
+            if (tablesListView.SelectedItem == null || timeslotListView.SelectedItem == null)
             {
-                if (chairsNeeded > 0)
+                if (tablesListView.SelectedItem == null && timeslotListView.SelectedItem == null)
                 {
-                    if (string.IsNullOrWhiteSpace(lastName))
+                    MessageBox.Show($"Du har inte valt en tid, eller ett bord!", "Välj en tid och ett bord");
+                }
+                else if (timeslotListView.SelectedItem == null)
+                {
+                    MessageBox.Show($"Du har inte valt en tid!", "Välj en tid");
+                }
+                else if (tablesListView.SelectedItem == null)
+                {
+                    MessageBox.Show($"Du har inte valt ett bord!", "Välj ett bord");
+                }
+
+            }
+            else
+            {
+
+                int? totalBookedChairsForTheHour = ViewModel.SelectedHourOpen.Tables.Aggregate(0, (result, table) =>
+                {
+                    int? chairs = table.TotalChairs - table.FreeChairs;
+                    return result + (int)chairs;
+                });
+
+
+                if (chairsNeeded_combobox.SelectedItem != null && int.TryParse(chairsNeeded_combobox.SelectedItem.ToString(), out chairsNeeded))
+                {
+                    if (new DataProvider().GetAmountOfChairsPerHour() < totalBookedChairsForTheHour + chairsNeeded)
                     {
-                        MessageBox.Show("Du måste ange minst ett efternamn till bokningen.", "Efternamn krävs");
-                        return;
-                    }
-                    else if (housePhone.IsMatch(phonerNr) || cellPhone.IsMatch(phonerNr))
-                    {
-                        DateOnly date = DateOnly.FromDateTime(ViewModel.SelectedCalendarDate);
-                        ViewModel.SelectedTable.BookedCustomer.Add(new(date, tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
-                        ViewModel.DisplayActiveBookings();
-                        ViewModel.UpdateTableBackgrounds();
-                        KitchenLayout.Visibility = Visibility.Visible;
-                        AddbookingGrid.Visibility = Visibility.Hidden;
-                        NewBookingButton.Visibility = Visibility.Visible;
-                        ClearAllText();
+                        MessageBox.Show($"Tyvärr kan vi inte ta emot bokningen.\nPå grund av personalbrist kan vi bara hantera 24 sittplatser per timma." +
+                            $"\n\nDet finns bara {new DataProvider().GetAmountOfChairsPerHour() - totalBookedChairsForTheHour} platser kvar på den valda tiden.\n" +
+                            $"Behövs det mera platser än så, vänligen välj ett annat klockslag.", "Fullbokat!");
                     }
                     else
                     {
-                        MessageBox.Show($"Du har inte angett ett giltigt telefonnummer.\n+467XXXXXXXX, 00467XXXXXXXX, 07XXXXXXXX\n" +
-                                        $"Eller hemnummer inkl. riktnummer.", "Ogiltigt telefonnummer");
-                        return;
+
+                        if (chairsNeeded > 0)
+                        {
+                            if (string.IsNullOrWhiteSpace(lastName))
+                            {
+                                MessageBox.Show("Du måste ange minst ett efternamn till bokningen.", "Efternamn krävs");
+                            }
+                            else if (housePhone.IsMatch(phonerNr) || cellPhone.IsMatch(phonerNr))
+                            {
+                                DateOnly date = DateOnly.FromDateTime(ViewModel.SelectedCalendarDate);
+                                ViewModel.SelectedTable.BookedCustomer.Add(new(date, tempTable, tempHour, firstName, lastName, specReq, phonerNr, chairsNeeded));
+                                ViewModel.DisplayActiveBookings();
+                                ViewModel.UpdateTableBackgrounds();
+                                KitchenLayout.Visibility = Visibility.Visible;
+                                AddbookingGrid.Visibility = Visibility.Hidden;
+                                NewBookingButton.Visibility = Visibility.Visible;
+                                ClearAllText();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Du har inte angett ett giltigt telefonnummer.\n+467XXXXXXXX, 00467XXXXXXXX, 07XXXXXXXX\n" +
+                                                $"Eller hemnummer inkl. riktnummer.", "Ogiltigt telefonnummer");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Du kan inte boka 0 stolar. Välj minst 1.\nFinns det inte mer, välj en annan dag, eller ett annat bord.", "Fel antal stolar");
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Du kan inte boka 0 stolar. Välj minst 1.\nFinns det inte mer, välj en annan dag, eller ett annat bord.", "Fel antal stolar");
+                    MessageBox.Show("Du har inte angivit antal stolar till bokningen.", "Ange antal platser");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Du har inte angivit antal stolar till bokningen.", "Ange antal platser");
-                return;
             }
         }
 
@@ -188,7 +223,7 @@ namespace Bookings.View
             if (activeBookingsView.SelectedItem != null)
             {
                 var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
-                MessageBoxResult mBoxResult = ShowCustomerInformation(selectedCustomer, "VILL DU TA BORT BOKNINGEN", MessageBoxButton.YesNo);
+                MessageBoxResult mBoxResult = ShowCustomerInformation(selectedCustomer, "Är du säker på att du vill ta bort bokningen?", MessageBoxButton.YesNo);
                 if (mBoxResult == MessageBoxResult.Yes)
                 {
                     selectedCustomer.CustomerTable.FreeChairs += selectedCustomer.ChairsNeeded;

@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -108,7 +108,7 @@
         </Grid>
 
         <!--Add Customer Grid-->
-        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
+        <Grid x:Name="AddbookingGrid" Width="auto" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
