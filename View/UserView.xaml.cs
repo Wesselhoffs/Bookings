@@ -59,16 +59,14 @@ namespace Bookings.View
             await ViewModel.LoadBookingCalendarAsync();
             DateTime today = DateTime.Now;
             Booking_Calendar.DisplayDateStart = today;
+            Booking_Calendar.SelectedDate = today;
             today = today.AddYears(1);
             Booking_Calendar.DisplayDateEnd = today;
         }
-        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
+
+        private void Table8_9_Click(object sender, RoutedEventArgs e)
         {
-            base.OnPreviewMouseUp(e);
-            if (Mouse.Captured is CalendarItem)
-            {
-                Mouse.Capture(null);
-            }
+
         }
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
@@ -78,9 +76,27 @@ namespace Bookings.View
             NewBookingButton.Visibility = Visibility.Hidden;
         }
 
-        private void Table8_9_Click(object sender, RoutedEventArgs e)
+        private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (activeBookingsView.SelectedItem != null)
+            {
+                var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
+                MessageBoxResult mBoxResult = ShowCustomerInformation(selectedCustomer, "Är du säker på att du vill ta bort bokningen?", MessageBoxButton.YesNo);
+                if (mBoxResult == MessageBoxResult.Yes)
+                {
+                    selectedCustomer.CustomerTable.FreeChairs += selectedCustomer.ChairsNeeded;
+                    int index = selectedCustomer.CustomerTable.BookedCustomer.FindIndex(c => c.BookingInformation.Equals(selectedCustomer.BookingInformation));
+                    selectedCustomer.CustomerTable.BookedCustomer.RemoveAt(index);
+                    selectedCustomer = null;
+                    GC.Collect();
+                    ViewModel.DisplayActiveBookings();
+                    ViewModel.UpdateTableBackgrounds();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du har inte valt någon bokning i fönstret \"Bokningar för valt datum\"\nMarkera en bokning för att ta bort den", "Välj en bokning");
+            }
         }
 
         private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
@@ -175,14 +191,6 @@ namespace Bookings.View
             }
         }
 
-        private void ClearAllText()
-        {
-            customerFirstNameTextbox.Clear();
-            customerLastNameTextbox.Clear();
-            customerPhoneNrTextbox.Clear();
-            customerSpecReqTextbox.Clear();
-        }
-
         private void cancel_booking_button_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mboxResult = MessageBox.Show("Är du säker på att du vill avbryta?\nAll text går förlorad.", "Ångra bokning", MessageBoxButton.YesNo);
@@ -218,27 +226,21 @@ namespace Bookings.View
             return mBoxResult;
         }
 
-        private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnPreviewMouseUp(MouseButtonEventArgs e)
         {
-            if (activeBookingsView.SelectedItem != null)
+            base.OnPreviewMouseUp(e);
+            if (Mouse.Captured is CalendarItem)
             {
-                var selectedCustomer = (Customer)activeBookingsView.SelectedItem;
-                MessageBoxResult mBoxResult = ShowCustomerInformation(selectedCustomer, "Är du säker på att du vill ta bort bokningen?", MessageBoxButton.YesNo);
-                if (mBoxResult == MessageBoxResult.Yes)
-                {
-                    selectedCustomer.CustomerTable.FreeChairs += selectedCustomer.ChairsNeeded;
-                    int index = selectedCustomer.CustomerTable.BookedCustomer.FindIndex(c => c.BookingInformation.Equals(selectedCustomer.BookingInformation));
-                    selectedCustomer.CustomerTable.BookedCustomer.RemoveAt(index);
-                    selectedCustomer = null;
-                    GC.Collect();
-                    ViewModel.DisplayActiveBookings();
-                    ViewModel.UpdateTableBackgrounds();
-                }
+                Mouse.Capture(null);
             }
-            else
-            {
-                MessageBox.Show("Du har inte valt någon bokning i fönstret \"Bokningar för valt datum\"\nMarkera en bokning för att ta bort den", "Välj en bokning");
-            }
+        }
+
+        private void ClearAllText()
+        {
+            customerFirstNameTextbox.Clear();
+            customerLastNameTextbox.Clear();
+            customerPhoneNrTextbox.Clear();
+            customerSpecReqTextbox.Clear();
         }
     }
 }
