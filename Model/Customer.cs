@@ -20,14 +20,6 @@ namespace Bookings.Model
 
         public Customer()
         {
-            this.CustomerTable = null;
-            this.CustomerBookedhour = null;
-            this.BookingInformation = null;
-            this.FirstName = null;
-            this.LastName = null;
-            this.SpecialRequests = null;
-            this.PhoneNumber = null;
-            this.ChairsNeeded = null;
         }
         public Customer(DateOnly bookedDate, Table table, HoursOpen hour, string? firstName, string? lastName, string? specialRequests, string? phoneNumber, int chairsNeeded)
         {

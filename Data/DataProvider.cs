@@ -89,7 +89,7 @@ namespace Bookings.Data
                 string customerHour, customerTable;
                 customerHour = customer.BookingInformation.Substring(0, 13);
                 customerTable = customer.BookingInformation.Substring(customer.BookingInformation.IndexOf(Environment.NewLine) + 2, 7).Trim(',');
-                bookings.TryGetValue(dateKeyValue, out Restaurant_Day rDay);
+                bookings.TryGetValue(dateKeyValue, out Restaurant_Day? rDay);
 
                 var hourIndex = Array.FindIndex(rDay.Timeslots, t => t.Time == customerHour);
                 var tableIndex = Array.FindIndex(rDay.Timeslots[hourIndex].Tables, t => t.Name == customerTable);
@@ -130,6 +130,17 @@ namespace Bookings.Data
 
             try
             {
+                if (File.Exists(SavefilePath))
+                {
+                    if (File.Exists(SavefilePath.Replace(".json","_backup.json")))
+                    {
+                        File.Delete(SavefilePath.Replace(".json", "_backup.json"));
+                    }
+                    else
+                    {
+                        File.Copy(SavefilePath, SavefilePath.Replace(".json", "_backup.json"));
+                    }
+                }
                 using (FileStream fs = File.Create(SavefilePath))
                 {
                     await JsonSerializer.SerializeAsync(fs, myBookedCustomers);

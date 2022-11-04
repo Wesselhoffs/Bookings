@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -90,7 +91,8 @@ namespace Bookings.View
                     selectedCustomer = null;
                     GC.Collect();
                     ViewModel.DisplayActiveBookings();
-                    ViewModel.UpdateTableBackgrounds();
+                    ViewModel.UpdateTableBackgrounds(); 
+                    SaveBookings();
                 }
             }
             else
@@ -99,9 +101,9 @@ namespace Bookings.View
             }
         }
 
-        private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SerializeThis();
+           
         }
 
         private void add_booking_button_Click(object sender, RoutedEventArgs e)
@@ -171,6 +173,7 @@ namespace Bookings.View
                                 AddbookingGrid.Visibility = Visibility.Hidden;
                                 NewBookingButton.Visibility = Visibility.Visible;
                                 ClearAllText();
+                                SaveBookings();
                             }
                             else
                             {
@@ -189,6 +192,11 @@ namespace Bookings.View
                     MessageBox.Show("Du har inte angivit antal stolar till bokningen.", "Ange antal platser");
                 }
             }
+        }
+
+        private async void SaveBookings()
+        {
+            await ViewModel.SerializeAndSaveBookingsAsync();
         }
 
         private void cancel_booking_button_Click(object sender, RoutedEventArgs e)

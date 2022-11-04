@@ -238,18 +238,14 @@ namespace Bookings.ViewModel
                 }
             }
         }
-        public void SerializeThis()
+        public async Task SerializeAndSaveBookingsAsync()
         {
-            BookingsDataProvider.SaveBookingsAsync(BookingsCalendar);
+            await BookingsDataProvider.SaveBookingsAsync(BookingsCalendar);
         }
 
         public async Task LoadBookingCalendarAsync()
         {
             BookingsCalendar = await BookingsDataProvider.LoadBookingsAsync();
-        }
-
-        internal void Deserialize()
-        {
         }
 
         internal async Task LogException(Exception ex)

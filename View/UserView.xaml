@@ -264,22 +264,22 @@
                     <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
                 </ListView.Effect>
             </ListView>
-            <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,35,0,0" VerticalAlignment="Top" Click="NewBookingButton_Click" >
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+            <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="20" Height="80" Width="200" Click="NewBookingButton_Click" >
                 <Button.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>
             </Button>
-            <Button x:Name="DeleteBookinButton" Content="radera bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,0,0,0" VerticalAlignment="Center" Click="DeleteBookinButton_Click" >
+            <Button x:Name="DeleteBookinButton" Content="radera bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Height="80" Width="200" Click="DeleteBookinButton_Click" >
                 <Button.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
                 </Button.Effect>
             </Button>
-            <Button x:Name="SearchBookingButton" Content="sök bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Grid.Column="2" Height="80" Width="200" Margin="0,0,0,35" VerticalAlignment="Bottom" Click="SearchBookingButton_Click" >
-                <Button.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
-                </Button.Effect>
-            </Button>
-
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

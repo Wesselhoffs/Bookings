@@ -8,9 +8,6 @@ namespace Bookings.Model
         public DateOnly date { get; set; }
         public HoursOpen[] Timeslots { get; set; }
 
-        public Restaurant_Day()
-        {
-        }
         public Restaurant_Day(DateOnly date)
         {
             int openHoursAmount = new DataProvider().GetOpenHours();
