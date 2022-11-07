@@ -65,16 +65,15 @@ namespace Bookings.View
             Booking_Calendar.DisplayDateEnd = today;
         }
 
-        private void Table8_9_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+     
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
         {
             AddbookingGrid.Visibility = Visibility.Visible;
             KitchenLayout.Visibility = Visibility.Hidden;
             NewBookingButton.Visibility = Visibility.Hidden;
+            SearchBookingButton.Visibility = Visibility.Hidden;
+            DeleteBookinButton.Visibility = Visibility.Hidden;
         }
 
         private void DeleteBookinButton_Click(object sender, RoutedEventArgs e)
@@ -101,10 +100,7 @@ namespace Bookings.View
             }
         }
 
-        private async void SearchBookingButton_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
+       
 
         private void add_booking_button_Click(object sender, RoutedEventArgs e)
         {
@@ -170,8 +166,10 @@ namespace Bookings.View
                                 ViewModel.DisplayActiveBookings();
                                 ViewModel.UpdateTableBackgrounds();
                                 KitchenLayout.Visibility = Visibility.Visible;
-                                AddbookingGrid.Visibility = Visibility.Hidden;
+                                AddbookingGrid.Visibility = Visibility.Hidden; 
                                 NewBookingButton.Visibility = Visibility.Visible;
+                                SearchBookingButton.Visibility = Visibility.Visible;
+                                DeleteBookinButton.Visibility = Visibility.Visible;
                                 ClearAllText();
                                 SaveBookings();
                             }
@@ -207,6 +205,8 @@ namespace Bookings.View
                 KitchenLayout.Visibility = Visibility.Visible;
                 AddbookingGrid.Visibility = Visibility.Hidden;
                 NewBookingButton.Visibility = Visibility.Visible;
+                SearchBookingButton.Visibility = Visibility.Visible;
+                DeleteBookinButton.Visibility = Visibility.Visible;
                 ClearAllText();
             }
         }
@@ -225,7 +225,7 @@ namespace Bookings.View
             MessageBoxResult mBoxResult = MessageBox.Show($"Kund & Bokningsinformation\n" +
                             $"---------------\n\n" +
                             $"Datum:\t\t{selectedCustomer.BookedDate}\n" +
-                            $"Namn:\t\t{selectedCustomer.FirstName} {selectedCustomer.LastName}\n" +
+                            $"Namn:\t\t{selectedCustomer.Lastname} {selectedCustomer.LastName}\n" +
                             $"Telefonnummer:\t{selectedCustomer.PhoneNumber}\n" +
                             $"Tid:\t\t{selectedCustomer.CustomerBookedhour.Time}\n" +
                             $"Bord:\t\t{selectedCustomer.CustomerTable.Name}\n" +
@@ -249,6 +249,133 @@ namespace Bookings.View
             customerLastNameTextbox.Clear();
             customerPhoneNrTextbox.Clear();
             customerSpecReqTextbox.Clear();
+        }
+
+        private void Table4_1_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(0);
+        }
+
+        private void Table4_2_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(1);
+        }
+
+        private void Table4_3_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(2);
+        }
+
+        private void Table4_4_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(3);
+        }
+
+        private void Table4_5_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(4);
+        }
+
+        private void Table4_6_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(5);
+        }
+
+        private void Table_7_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(6);
+        }
+
+        private void Table4_8_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(7);
+        }
+
+        private void Table8_9_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(8);
+        }
+
+
+        private void Table8_10_Click(object sender, RoutedEventArgs e)
+        {
+            SetFocusToTable(9);
+        }
+        private void SetFocusToTable(int focusIndex)
+        {
+            if (timeslotListView.SelectedIndex == -1)
+            {
+                timeslotListView.SelectedIndex = 0;
+            }
+            DateTableControlGrid.Focus();
+            tablesListView.Focus();
+            tablesListView.SelectedIndex = focusIndex;
+        }
+
+        private void TableMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NewBookingButton_Click(sender, e);
+        }
+
+        private void listAll_button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ListAllBookings();
+        }
+
+        private void goBack_button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SearchedCustomers.Clear();
+            searchFirstname_Radio_btn.IsChecked = false;
+            searchLastname_Radio_btn.IsChecked = false;
+            searchNumber_Radio_btn.IsChecked = false;
+            searchFirstname_TextBox.Clear();
+            searchLastname_TextBox.Clear();
+            searchNumber_TextBox.Clear();
+            DateTableControlGrid.Visibility = Visibility.Visible;
+            KitchenLayout.Visibility = Visibility.Visible;
+            SearchCustomerGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void SearchBookingButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTableControlGrid.Visibility = Visibility.Hidden;
+            KitchenLayout.Visibility = Visibility.Hidden;
+            SearchCustomerGrid.Visibility = Visibility.Visible;
+        }
+
+        private void searchListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (searchListview.SelectedItem != null)
+            {
+                var selectedCustomer = (Customer)searchListview.SelectedItem;
+                ShowCustomerInformation(selectedCustomer, "Bokningsinformation", MessageBoxButton.OK);
+            }
+        }
+
+        private void search_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (searchFirstname_Radio_btn.IsChecked == true)
+            {
+                if (string.IsNullOrWhiteSpace(searchFirstname_TextBox.Text))
+                {
+                    MessageBox.Show("För att söka på förnamn måste du skriva in något i textrutan.", "Text Saknas");
+                }
+                else
+                {
+                    ViewModel.SearchByFirstname(searchFirstname_TextBox.Text);
+                }
+            }
+            else if (searchLastname_Radio_btn.IsChecked == true)
+            {
+                if (string.IsNullOrWhiteSpace(searchLastname_TextBox.Text))
+                {
+                    MessageBox.Show("För att söka på efternamn måste du skriva in något i textrutan.", "Text Saknas");
+                }
+                else
+                {
+                    ViewModel.SearchByLastName(searchLastname_TextBox.Text);
+                }
+            }
         }
     }
 }

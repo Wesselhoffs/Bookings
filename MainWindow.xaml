@@ -25,7 +25,7 @@
         <controls:HeaderControl Grid.Row="0"/>
         
         <!--User View-->
-        <UserControl:UserView Grid.Row="2"/>
+        <UserControl:UserView x:Name="UC_UserView" Grid.Row="2"/>
         
         <!--Status Bar-->
         <controls:StatusbarControl Grid.Row="4"/>

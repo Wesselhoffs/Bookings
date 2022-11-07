@@ -25,14 +25,14 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid x:Name="UserViewGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -40,11 +40,12 @@
                 <ImageBrush ImageSource = "../Images/Restaurant_Background.png"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="132*"/>
+                <ColumnDefinition Width="132*"/>
+                <ColumnDefinition Width="132*"/>
+                <ColumnDefinition Width="107*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="132*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -55,52 +56,52 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #1">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_1" Grid.Row="0" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #1" Click="Table4_1_Click" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[0]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #2">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_2" Grid.Row="0" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #2" Click="Table4_2_Click" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[1]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #3">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_3" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #3" Click="Table4_3_Click" Margin="0,71,0,0" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[2]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #4">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_4" Grid.Row="1" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #4" Click="Table4_4_Click" Margin="0,71,0,0" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[3]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_5" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #5">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_5" Grid.Row="4" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #5" Click="Table4_5_Click" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush  ImageSource="{Binding TableBackground[4]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #6">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_6" Grid.Row="4" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #6" Click="Table4_6_Click" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[5]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table_7" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #7">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table_7" Grid.Row="5" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" ToolTip="Bord för 4 Personer. Bord #7" Click="Table_7_Click" Margin="0,71,0,0" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[6]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_8" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #8">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table4_8" Grid.Row="5" Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2" ToolTip="Bord för 4 Personer. Bord #8" Click="Table4_8_Click" Margin="0,71,0,0" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[7]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_9" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9" Click="Table8_9_Click">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_9" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #9" Click="Table8_9_Click" Grid.ColumnSpan="2" Margin="16,28,16,29" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[8]}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_10" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #10">
+            <Button Style="{StaticResource ButtonStyle}" x:Name="Table8_10" Grid.Row="4" Grid.Column="3" Grid.RowSpan="3" Width="100" Height="200" ToolTip="Bord för 8 Personer. Bord #10" Click="Table8_10_Click" Grid.ColumnSpan="2" Margin="16,29,16,28" MouseDoubleClick="TableMouseDoubleClick">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding TableBackground[9]}" />
                 </Button.Background>
@@ -228,8 +229,65 @@
             </Grid>
         </Grid>
 
+        <!--Search Customer Grid-->
+        <Grid x:Name="SearchCustomerGrid" Grid.ColumnSpan="2" Width="auto" Visibility="Visible" UseLayoutRounding="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <RadioButton x:Name="searchFirstname_Radio_btn" GroupName="useForSearch" Content="sök på förnamn" FontFamily="Cascadia Mono" FontSize="16" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" HorizontalAlignment="left" Margin="50,0,0,0"/>
+            <TextBox x:Name="searchFirstname_TextBox" Height="25"  Grid.Column="1" Width="200" FontFamily="Cascadia Mono" FontSize="16" HorizontalAlignment="Right" Margin="0,0,100,0">
+                <TextBox.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </TextBox.Effect>
+            </TextBox>
+            <RadioButton x:Name="searchLastname_Radio_btn" GroupName="useForSearch" Content="sök på efternamn" FontFamily="Cascadia Mono" FontSize="16" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" HorizontalAlignment="left" Margin="50,0,0,0"/>
+            <TextBox Height="25" x:Name="searchLastname_TextBox" Grid.Column="1" Grid.Row="1" Width="200" FontFamily="Cascadia Mono" FontSize="16" HorizontalAlignment="Right" Margin="0,0,100,0" >
+                <TextBox.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </TextBox.Effect>
+            </TextBox>
+            <RadioButton x:Name="searchNumber_Radio_btn" GroupName="useForSearch" Content="sök på telefonnummer" FontFamily="Cascadia Mono" FontSize="16" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" HorizontalAlignment="left" Margin="50,0,0,0"/>
+            <TextBox x:Name="searchNumber_TextBox" Height="25" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,100,0" Width="200" FontFamily="Cascadia Mono" FontSize="16">
+                <TextBox.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </TextBox.Effect>
+            </TextBox>
+            <Button x:Name="listAll_button" Grid.Row="3" HorizontalAlignment="Right" Content="visa alla&#10;bokningar"  Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="16" Height="50" Width="100" Margin="0,0,50,0" Click="listAll_button_Click">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="search_button" Grid.Row="3" HorizontalAlignment="Center" Content="  sök&#10;bokning" Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="16" Height="50" Width="100" Click="search_button_Click">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="goBack_button" Grid.Row="3" HorizontalAlignment="left" Content="   gå&#10;tillbaka" Grid.Column="1" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="16" Height="50" Width="100" Margin="50,0,0,0" Click="goBack_button_Click">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                </Button.Effect>
+            </Button>
+            <StackPanel  Grid.Column="2" Margin="20" Grid.RowSpan="4">
+                <Label Content="bokningar" FontFamily="Cascadia Mono" FontSize="24" HorizontalAlignment="Center"/>
+                <ListView x:Name="searchListview" Height="500" ItemsSource="{Binding SearchedCustomers, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BookingInformation" MouseDoubleClick="searchListview_MouseDoubleClick" BorderBrush="Gray" FontFamily="Cascadia Mono" FontSize="12" BorderThickness="2" >
+                    <ListView.Effect>
+                        <DropShadowEffect  BlurRadius="10" ShadowDepth="8"/>
+                    </ListView.Effect>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
         <!--Date and Bookings Grid-->
-        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid" UseLayoutRounding="True">
+        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid" Visibility="hidden" UseLayoutRounding="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -268,17 +326,23 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-            <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="20" Height="80" Width="200" Click="NewBookingButton_Click" >
-                <Button.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
-                </Button.Effect>
-            </Button>
-            <Button x:Name="DeleteBookinButton" Content="radera bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Height="80" Width="200" Click="DeleteBookinButton_Click" >
-                <Button.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
-                </Button.Effect>
-            </Button>
+                <Button x:Name="NewBookingButton" Content="ny bokning" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="20" Height="60" Width="200" Click="NewBookingButton_Click" >
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                    </Button.Effect>
+                </Button>
+                <Button x:Name="SearchBookingButton" Content="sök bokning" Grid.Row="2" BorderBrush="Gray"  BorderThickness="2" FontFamily="Cascadia Mono" FontSize="20" Height="60" Width="200" Click="SearchBookingButton_Click">
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                    </Button.Effect>
+                </Button>
+                <Button x:Name="DeleteBookinButton" Content="radera bokning" BorderBrush="Gray"  BorderThickness="2" Grid.Row="1" FontFamily="Cascadia Mono" FontSize="20" Height="60" Width="200" Click="DeleteBookinButton_Click" >
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="8"/>
+                    </Button.Effect>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

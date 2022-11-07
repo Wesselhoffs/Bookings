@@ -26,6 +26,7 @@ namespace Bookings.ViewModel
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
         public ObservableCollection<Customer> ActiveBookingsForSelectedDay { get; } = new();
+        public ObservableCollection<Customer> SearchedCustomers { get; } = new();
         public ObservableCollection<ImageSource> TableBackground { get; } = new();
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
@@ -251,6 +252,86 @@ namespace Bookings.ViewModel
         internal async Task LogException(Exception ex)
         {
             await BookingsDataProvider.LogExceptions(ex.ToString());
+        }
+
+        internal void ListAllBookings()
+        {
+            if (SearchedCustomers.Any())
+            {
+                SearchedCustomers.Clear();
+            }
+
+            var allCustomers = from days in BookingsCalendar.Values
+                               from hours in days.Timeslots
+                               from tables in hours.Tables
+                               where tables.BookedCustomer != null
+                               from bookedcustomer in tables.BookedCustomer
+                               select bookedcustomer;
+            foreach (var customer in allCustomers)
+            {
+                SearchedCustomers.Add(customer);
+            }
+        }
+
+        internal void SearchByFirstname(string firstName)
+        {
+            if (SearchedCustomers.Any())
+            {
+                SearchedCustomers.Clear();
+            }
+
+            var allCustomers = from days in BookingsCalendar.Values
+                               from hours in days.Timeslots
+                               from tables in hours.Tables
+                               where tables.BookedCustomer != null
+                               from bookedcustomer in tables.BookedCustomer
+                               select bookedcustomer;
+
+            foreach (var customer in allCustomers)
+            {
+                if (customer.Lastname != null)
+                {
+                    for (int i = firstName.Length; i > 0; i--)
+                    {
+                        string tempfirstName = firstName.ToLower().Substring(0, i);
+                        if (customer.Lastname.ToLower().StartsWith(tempfirstName))
+                        {
+                            SearchedCustomers.Add(customer);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        internal void SearchByLastName(string lastName)
+        {
+            if (SearchedCustomers.Any())
+            {
+                SearchedCustomers.Clear();
+            }
+
+            var allCustomers = from days in BookingsCalendar.Values
+                               from hours in days.Timeslots
+                               from tables in hours.Tables
+                               where tables.BookedCustomer != null
+                               from bookedcustomer in tables.BookedCustomer
+                               select bookedcustomer;
+
+            foreach (var customer in allCustomers)
+            {
+                if (customer.Lastname != null)
+                {
+                    for (int i = lastName.Length; i > 0; i--)
+                    {
+                        string tempfirstName = lastName.ToLower().Substring(0, i);
+                        if (customer.Lastname.ToLower().StartsWith(tempfirstName))
+                        {
+                            SearchedCustomers.Add(customer);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

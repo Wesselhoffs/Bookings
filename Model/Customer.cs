@@ -11,7 +11,7 @@ namespace Bookings.Model
         public HoursOpen? CustomerBookedhour { get; set; }
         public string BookedDate { get; set; }
         public string? BookingInformation { get; set; }
-        public string? FirstName { get; set; }
+        public string? Lastname { get; set; }
         public string? LastName { get; set; }
         public string? SpecialRequests { get; set; }
         public string? PhoneNumber { get; set; }
@@ -27,7 +27,7 @@ namespace Bookings.Model
             this.CustomerTable = table;
             CustomerTable.FreeChairs -= chairsNeeded;
             this.CustomerBookedhour = hour;
-            this.FirstName = firstName;
+            this.Lastname = firstName;
             this.LastName = lastName;
             this.SpecialRequests = specialRequests;
             this.PhoneNumber = phoneNumber;
