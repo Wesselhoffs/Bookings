@@ -225,7 +225,7 @@ namespace Bookings.View
             MessageBoxResult mBoxResult = MessageBox.Show($"Kund & Bokningsinformation\n" +
                             $"---------------\n\n" +
                             $"Datum:\t\t{selectedCustomer.BookedDate}\n" +
-                            $"Namn:\t\t{selectedCustomer.Lastname} {selectedCustomer.LastName}\n" +
+                            $"Namn:\t\t{selectedCustomer.FirstName} {selectedCustomer.LastName}\n" +
                             $"Telefonnummer:\t{selectedCustomer.PhoneNumber}\n" +
                             $"Tid:\t\t{selectedCustomer.CustomerBookedhour.Time}\n" +
                             $"Bord:\t\t{selectedCustomer.CustomerTable.Name}\n" +

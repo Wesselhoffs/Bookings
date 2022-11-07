@@ -289,12 +289,12 @@ namespace Bookings.ViewModel
 
             foreach (var customer in allCustomers)
             {
-                if (customer.Lastname != null)
+                if (customer.FirstName != null)
                 {
                     for (int i = firstName.Length; i > 0; i--)
                     {
                         string tempfirstName = firstName.ToLower().Substring(0, i);
-                        if (customer.Lastname.ToLower().StartsWith(tempfirstName))
+                        if (customer.FirstName.ToLower().StartsWith(tempfirstName))
                         {
                             SearchedCustomers.Add(customer);
                             break;
@@ -303,6 +303,7 @@ namespace Bookings.ViewModel
                 }
             }
         }
+
         internal void SearchByLastName(string lastName)
         {
             if (SearchedCustomers.Any())
@@ -319,12 +320,12 @@ namespace Bookings.ViewModel
 
             foreach (var customer in allCustomers)
             {
-                if (customer.Lastname != null)
+                if (customer.LastName != null)
                 {
                     for (int i = lastName.Length; i > 0; i--)
                     {
                         string tempfirstName = lastName.ToLower().Substring(0, i);
-                        if (customer.Lastname.ToLower().StartsWith(tempfirstName))
+                        if (customer.LastName.ToLower().StartsWith(tempfirstName))
                         {
                             SearchedCustomers.Add(customer);
                             break;
@@ -335,3 +336,4 @@ namespace Bookings.ViewModel
         }
     }
 }
+
