@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title=".NET Restaurant Bookings" 
         Height="768" Width="1366" 
-        MinHeight="600" MinWidth="1150">
+        MinHeight="700" MinWidth="1200">
 
     <!--Root Grid-->
     <Grid Background="DarkSeaGreen">

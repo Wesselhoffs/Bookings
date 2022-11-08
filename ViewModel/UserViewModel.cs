@@ -289,16 +289,11 @@ namespace Bookings.ViewModel
             foreach (var customer in allCustomers)
             {
                 if (customer.FirstName != null)
-                {
-                    for (int i = firstName.Length; i > 1; i--)
-                    {
-                        string tempfirstName = firstName.ToLower().Substring(0, i);
-                        if (customer.FirstName.ToLower().StartsWith(tempfirstName))
+                { 
+                        if (customer.FirstName.ToLower().StartsWith(firstName.ToLower()))
                         {
                             SearchedCustomers.Add(customer);
-                            break;
                         }
-                    }
                 }
             }
         }
@@ -321,19 +316,14 @@ namespace Bookings.ViewModel
             {
                 if (customer.LastName != null)
                 {
-                    for (int i = lastName.Length; i > 1; i--)
-                    {
-                        string tempfirstName = lastName.ToLower().Substring(0, i);
-                        if (customer.LastName.ToLower().StartsWith(tempfirstName))
+                    if (customer.LastName.ToLower().StartsWith(lastName.ToLower()))
                         {
                             SearchedCustomers.Add(customer);
-                            break;
-                        }
-                    }
+                        }                   
                 }
             }
         }
-
+            
         internal void SearchByNumber(string number)
         {
             if (SearchedCustomers.Any())
@@ -351,16 +341,11 @@ namespace Bookings.ViewModel
             foreach (var customer in allCustomers)
             {
                 if (customer.PhoneNumber != null)
-                {
-                    for (int i = number.Length; i > 1; i--)
-                    {
-                        string tempNumber = number.ToLower().Substring(0, i);    
-                        if (customer.PhoneNumber.ToLower().StartsWith(tempNumber))
+                {   
+                        if (customer.PhoneNumber.ToLower().StartsWith(number.ToLower()))
                         {
-                            SearchedCustomers.Add(customer);
-                            break;
-                        }
-                    }
+                            SearchedCustomers.Add(customer);                            
+                        }                  
                 }
             }
         }
