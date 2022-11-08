@@ -120,7 +120,7 @@ namespace Bookings.Data
             {
                 if (File.Exists(SavefilePath))
                 {
-                    if (File.Exists(SavefilePath.Replace(".json","_backup.json")))
+                    if (File.Exists(SavefilePath.Replace(".json", "_backup.json")))
                     {
                         File.Delete(SavefilePath.Replace(".json", "_backup.json"));
                     }

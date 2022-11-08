@@ -5,7 +5,6 @@ using Microsoft.Win32;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -65,7 +64,7 @@ namespace Bookings.View
             Booking_Calendar.DisplayDateEnd = today;
         }
 
-     
+
 
         private void NewBookingButton_Click(object sender, RoutedEventArgs e)
         {
@@ -90,7 +89,7 @@ namespace Bookings.View
                     selectedCustomer = null;
                     GC.Collect();
                     ViewModel.DisplayActiveBookings();
-                    ViewModel.UpdateTableBackgrounds(); 
+                    ViewModel.UpdateTableBackgrounds();
                     SaveBookings();
                 }
             }
@@ -100,7 +99,7 @@ namespace Bookings.View
             }
         }
 
-       
+
 
         private void add_booking_button_Click(object sender, RoutedEventArgs e)
         {
@@ -166,7 +165,7 @@ namespace Bookings.View
                                 ViewModel.DisplayActiveBookings();
                                 ViewModel.UpdateTableBackgrounds();
                                 KitchenLayout.Visibility = Visibility.Visible;
-                                AddbookingGrid.Visibility = Visibility.Hidden; 
+                                AddbookingGrid.Visibility = Visibility.Hidden;
                                 NewBookingButton.Visibility = Visibility.Visible;
                                 SearchBookingButton.Visibility = Visibility.Visible;
                                 DeleteBookinButton.Visibility = Visibility.Visible;

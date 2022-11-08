@@ -3,9 +3,7 @@ using Bookings.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -165,7 +163,7 @@ namespace Bookings.ViewModel
 
 
 
-       
+
         private void SetSelectedRestaurantDay()
         {
             DateOnly searchDate = DateOnly.FromDateTime(SelectedCalendarDate);
@@ -285,11 +283,11 @@ namespace Bookings.ViewModel
             foreach (var customer in allCustomers)
             {
                 if (customer.FirstName != null)
-                { 
-                        if (customer.FirstName.ToLower().StartsWith(firstName.ToLower()))
-                        {
-                            SearchedCustomers.Add(customer);
-                        }
+                {
+                    if (customer.FirstName.ToLower().StartsWith(firstName.ToLower()))
+                    {
+                        SearchedCustomers.Add(customer);
+                    }
                 }
             }
         }
@@ -313,13 +311,13 @@ namespace Bookings.ViewModel
                 if (customer.LastName != null)
                 {
                     if (customer.LastName.ToLower().StartsWith(lastName.ToLower()))
-                        {
-                            SearchedCustomers.Add(customer);
-                        }                   
+                    {
+                        SearchedCustomers.Add(customer);
+                    }
                 }
             }
         }
-            
+
         internal void SearchByNumber(string number)
         {
             if (SearchedCustomers.Any())
@@ -337,11 +335,11 @@ namespace Bookings.ViewModel
             foreach (var customer in allCustomers)
             {
                 if (customer.PhoneNumber != null)
-                {   
-                        if (customer.PhoneNumber.ToLower().StartsWith(number.ToLower()))
-                        {
-                            SearchedCustomers.Add(customer);                            
-                        }                  
+                {
+                    if (customer.PhoneNumber.ToLower().StartsWith(number.ToLower()))
+                    {
+                        SearchedCustomers.Add(customer);
+                    }
                 }
             }
         }
