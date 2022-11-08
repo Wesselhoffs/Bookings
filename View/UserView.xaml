@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Table Layout Grid-->
-        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Hidden" UseLayoutRounding="True">
+        <Grid x:Name="KitchenLayout" MaxWidth="660" Visibility="Visible" UseLayoutRounding="True">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="8"/>
             </Grid.Effect>
@@ -230,7 +230,7 @@
         </Grid>
 
         <!--Search Customer Grid-->
-        <Grid x:Name="SearchCustomerGrid" Grid.ColumnSpan="2" Width="auto" Visibility="Visible" UseLayoutRounding="True">
+        <Grid x:Name="SearchCustomerGrid" Grid.ColumnSpan="2" Width="auto" Visibility="Hidden" UseLayoutRounding="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
@@ -287,7 +287,7 @@
         </Grid>
 
         <!--Date and Bookings Grid-->
-        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid" Visibility="hidden" UseLayoutRounding="True">
+        <Grid Grid.Column="2" Grid.Row="0" x:Name="DateTableControlGrid" Visibility="Visible" UseLayoutRounding="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

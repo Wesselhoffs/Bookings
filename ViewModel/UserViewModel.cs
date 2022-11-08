@@ -30,7 +30,6 @@ namespace Bookings.ViewModel
         public ObservableCollection<ImageSource> TableBackground { get; } = new();
         public Dictionary<DateOnly, Restaurant_Day> BookingsCalendar { get; set; }
 
-
         public DateTime SelectedCalendarDate
         {
             get => selectedCalendarDate;
@@ -291,7 +290,7 @@ namespace Bookings.ViewModel
             {
                 if (customer.FirstName != null)
                 {
-                    for (int i = firstName.Length; i > 0; i--)
+                    for (int i = firstName.Length; i > 1; i--)
                     {
                         string tempfirstName = firstName.ToLower().Substring(0, i);
                         if (customer.FirstName.ToLower().StartsWith(tempfirstName))
@@ -322,10 +321,41 @@ namespace Bookings.ViewModel
             {
                 if (customer.LastName != null)
                 {
-                    for (int i = lastName.Length; i > 0; i--)
+                    for (int i = lastName.Length; i > 1; i--)
                     {
                         string tempfirstName = lastName.ToLower().Substring(0, i);
                         if (customer.LastName.ToLower().StartsWith(tempfirstName))
+                        {
+                            SearchedCustomers.Add(customer);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void SearchByNumber(string number)
+        {
+            if (SearchedCustomers.Any())
+            {
+                SearchedCustomers.Clear();
+            }
+
+            var allCustomers = from days in BookingsCalendar.Values
+                               from hours in days.Timeslots
+                               from tables in hours.Tables
+                               where tables.BookedCustomer != null
+                               from bookedcustomer in tables.BookedCustomer
+                               select bookedcustomer;
+
+            foreach (var customer in allCustomers)
+            {
+                if (customer.PhoneNumber != null)
+                {
+                    for (int i = number.Length; i > 1; i--)
+                    {
+                        string tempNumber = number.ToLower().Substring(0, i);    
+                        if (customer.PhoneNumber.ToLower().StartsWith(tempNumber))
                         {
                             SearchedCustomers.Add(customer);
                             break;

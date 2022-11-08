@@ -360,6 +360,10 @@ namespace Bookings.View
                 {
                     MessageBox.Show("För att söka på förnamn måste du skriva in något i textrutan.", "Text Saknas");
                 }
+                else if (searchFirstname_TextBox.Text.Length < 2)
+                {
+                    MessageBox.Show("För att söka på förnamn måste du skriva minst 2 tecken.", "Text Saknas");
+                }
                 else
                 {
                     ViewModel.SearchByFirstname(searchFirstname_TextBox.Text);
@@ -371,9 +375,28 @@ namespace Bookings.View
                 {
                     MessageBox.Show("För att söka på efternamn måste du skriva in något i textrutan.", "Text Saknas");
                 }
+                else if (searchLastname_TextBox.Text.Length < 2)
+                {
+                    MessageBox.Show("För att söka på efternamn måste du skriva minst 2 tecken.", "Text Saknas");
+                }
                 else
                 {
                     ViewModel.SearchByLastName(searchLastname_TextBox.Text);
+                }
+            }
+            else if (searchNumber_Radio_btn.IsChecked == true)
+            {
+                if (string.IsNullOrWhiteSpace(searchNumber_TextBox.Text))
+                {
+                    MessageBox.Show("För att söka på nummer måste du skriva in något i textrutan.", "Text Saknas");
+                }
+                else if (searchNumber_TextBox.Text.Length < 2)
+                {
+                    MessageBox.Show("För att söka på nummer måste du skriva minst 2 tecken.", "Text Saknas");
+                }
+                else
+                {
+                    ViewModel.SearchByNumber(searchNumber_TextBox.Text);
                 }
             }
         }
