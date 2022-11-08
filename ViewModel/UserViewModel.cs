@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace Bookings.ViewModel
 {
-    public class UserViewModel : INotifyPropertyChanged
+    public class UserViewModel : ViewModelBase
     {
         private readonly IDataProvider BookingsDataProvider;
         private DateTime selectedCalendarDate;
@@ -21,7 +21,6 @@ namespace Bookings.ViewModel
         private Table selectedTable;
         private Customer selectedCustomer;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<HoursOpen> HoursOpen { get; } = new();
         public ObservableCollection<Table> Tables { get; } = new();
         public ObservableCollection<Restaurant_Day> RestaurantDay { get; } = new();
@@ -87,6 +86,10 @@ namespace Bookings.ViewModel
             }
         }
 
+        public UserViewModel(IDataProvider bookingsDataProvider)
+        {
+            this.BookingsDataProvider = bookingsDataProvider;
+        }
         public void UpdateTableBackgrounds()
         {
             int counter = 0;
@@ -161,15 +164,8 @@ namespace Bookings.ViewModel
         }
 
 
-        public UserViewModel(IDataProvider bookingsDataProvider)
-        {
-            this.BookingsDataProvider = bookingsDataProvider;
-        }
 
-        private void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
         private void SetSelectedRestaurantDay()
         {
             DateOnly searchDate = DateOnly.FromDateTime(SelectedCalendarDate);

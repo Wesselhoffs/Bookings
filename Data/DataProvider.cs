@@ -8,17 +8,6 @@ using System.Threading.Tasks;
 
 namespace Bookings.Data
 {
-    public interface IDataProvider
-    {
-        public string SavefilePath { get; set; }
-        int GetAmountOfTables();
-        int GetOpenHours();
-        int GetAmountOfChairsPerHour();
-
-        Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync();
-        Task SaveBookingsAsync(Dictionary<DateOnly, Restaurant_Day> bookings);
-        Task LogExceptions(string ex);
-    }
     public class DataProvider : IDataProvider
     {
         public string SavefilePath { get; set; }
@@ -59,7 +48,6 @@ namespace Bookings.Data
 
         public async Task<Dictionary<DateOnly, Restaurant_Day>> LoadBookingsAsync()
         {
-            await Task.Delay(0);
             Dictionary<DateOnly, Restaurant_Day> bookings = new();
 
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
@@ -91,7 +79,7 @@ namespace Bookings.Data
                 customerTable = customer.BookingInformation.Substring(customer.BookingInformation.IndexOf(Environment.NewLine) + 2, 7).Trim(',');
                 bookings.TryGetValue(dateKeyValue, out Restaurant_Day? rDay);
 
-                var hourIndex = Array.FindIndex(rDay.Timeslots, t => t.Time == customerHour);
+                var hourIndex = Array.FindIndex(rDay.Timeslots, h => h.Time == customerHour);
                 var tableIndex = Array.FindIndex(rDay.Timeslots[hourIndex].Tables, t => t.Name == customerTable);
 
                 customer.CustomerBookedhour = rDay.Timeslots[hourIndex];
